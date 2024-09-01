@@ -78,12 +78,12 @@ const GenerateCertificate: React.FC<GenerateCertificateProps> = ({ courseName })
       >
         <div className="relative w-full h-full">
           <Image
-            src="/assests/New signature Certificate.png"
+            src="/assests/certbg.png"
             alt="Certificate Background"
             layout="fill"
             objectFit="cover"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-8 mb-[110px]">
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-8 mb-[90px]">
             <h1 className="text-[30px] font-serif text-blue-500">{courseName}</h1>
             <p className="text-[25px] font-serif text-blue-500">
               PROFESSIONAL CERTIFICATION COURSE
@@ -91,7 +91,7 @@ const GenerateCertificate: React.FC<GenerateCertificateProps> = ({ courseName })
             <p className="text-[16px] text-black">
               Date: {new Date().toLocaleDateString('en-GB')}
             </p>
-            <div className="text-4xl font-serif text-black mt-[100px]">{userName}</div>
+            <div className="text-4xl font-serif text-black mt-[65px]">{userName}</div>
           </div>
         </div>
       </div>
