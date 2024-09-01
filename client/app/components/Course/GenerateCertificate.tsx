@@ -78,7 +78,7 @@ const GenerateCertificate: React.FC<GenerateCertificateProps> = ({ courseName })
       >
         <div className="relative w-full h-full">
           <Image
-            src="/assests/certbg.png"
+            src="/assests/New signature Certificate.png"
             alt="Certificate Background"
             layout="fill"
             objectFit="cover"
