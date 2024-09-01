@@ -24,7 +24,7 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/v1/internship-enrollment", {
+      const response = await fetch("https://adroythub.onrender.com/api/v1/internship-enrollment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,12 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        domains: ['res.cloudinary.com','randomuser.me'],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**', // Adjust the path as necessary
       },
-      experimental:{
-        reactRoot: true,
-        suppressHydrationWarning: true,
-      }
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+        port: '',
+        pathname: '/**', // Adjust the path as necessary
+      },
+    ],
+  },
+  experimental: {
+    // Remove invalid keys reactRoot and suppressHydrationWarning
+  },
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;
