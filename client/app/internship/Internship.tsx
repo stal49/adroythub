@@ -122,14 +122,14 @@ const [isFormVisible, setFormVisible] = useState(false);
                         </h1>
                         <br />
                         <br />
-                        At Adroythub, a subsidiary of Adsium Innovation Private Limited, we believe that real-world experience is key to unlocking your full potential. That’s why we’ve created an exclusive internship program for graduates of our offline batches. This program is designed to bridge the gap between academic learning and industry application, offering you the opportunity to work on meaningful projects in IT, programming, marketing, and business communication.
+                        At Adroythub, a subsidiary of Adsium Innovation Private Limited, we believe that real-world experience is key to unlocking your full potential. That&apos;s why we&apos;ve created an exclusive internship program for graduates of our offline batches. This program is designed to bridge the gap between academic learning and industry application, offering you the opportunity to work on meaningful projects in IT, programming, marketing, and business communication.
                         <br />
                         <br />
                         <div ref={targetSectionRef} className="flex flex-row justify-center align-middle mt-7 p-8">
                             <h2 className="text-3xl text-gradient">Who Can Apply?</h2>
                         </div>
                         <p className="text-[20px] font-Poppins">
-                        This internship is open to students who have successfully completed any of our offline courses at Adroythub. If you’ve taken courses in IT, programming languages, business communication, or marketing, this program is your next step towards a successful career.
+                        This internship is open to students who have successfully completed any of our offline courses at Adroythub. If you&apos;ve taken courses in IT, programming languages, business communication, or marketing, this program is your next step towards a successful career.
                         </p>
                     </p>
                     
@@ -202,7 +202,7 @@ const [isFormVisible, setFormVisible] = useState(false);
                         </ul>
                       
                         <br />
-                        <span className="text-gradient">3. Mentorship and Networking : </span>Work closely with experienced mentors who will guide you through your projects and help you navigate the professional world. In addition, you’ll have the opportunity to network with industry professionals, opening doors to future career opportunities.
+                        <span className="text-gradient">3. Mentorship and Networking : </span>Work closely with experienced mentors who will guide you through your projects and help you navigate the professional world. In addition, you&apos;ll have the opportunity to network with industry professionals, opening doors to future career opportunities.
                         <br />
                         <br />
                         <span className="text-gradient">4. Career Advancement : </span>Many of our interns have gone on to secure full-time positions within Adsium Innovation or other leading companies. The experience and skills you gain here will give you a competitive edge in the job market.
@@ -257,7 +257,7 @@ const [isFormVisible, setFormVisible] = useState(false);
                             <li>1. Fill Out the Online Application : Provide your details and course information. [Click on Enroll Now!]</li>
                             <li>2. Submit Your Resume and Portfolio : Highlight your skills, projects, and achievements.</li>
                             <li>3. Complete an Online Assessment : Depending on the role, you may be asked to complete a short assessment or submit a project.</li>
-                            <li>4. Attend a Virtual Interview : If shortlisted, you’ll be invited to discuss your suitability for the role.</li>
+                            <li>4. Attend a Virtual Interview : If shortlisted, you&apos;ll be invited to discuss your suitability for the role.</li>
                         </ul>
                         <br />
                         <button className="text-sm bg-purple-500 p-4 rounded-2xl text-white dark:text-white"
@@ -317,9 +317,9 @@ const [isFormVisible, setFormVisible] = useState(false);
                         </h1>
                         <br />
                         <ul>
-                            <li>IT Project : An intern developed an e-commerce platform that’s now driving significant sales for a local business.</li>
-                            <li>Programming Project : An intern built a Python-based data analytics tool that’s improving decision-making for a client.</li>
-                            <li>Marketing Project :An intern managed a social media campaign that increased a startup’s followers by 50% and boosted engagement by 30%.</li>
+                            <li>IT Project : An intern developed an e-commerce platform that&apos;s now driving significant sales for a local business.</li>
+                            <li>Programming Project : An intern built a Python-based data analytics tool that&apos;s improving decision-making for a client.</li>
+                            <li>Marketing Project :An intern managed a social media campaign that increased a startup&apos;s followers by 50% and boosted engagement by 30%.</li>
                             <li>Business Communication Project : An intern created client presentations that secured a major client for the company.</li>
                         </ul>
                         <br />
