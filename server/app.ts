@@ -22,7 +22,7 @@ app.use(cookieParser());
 // cors => cross origin resource sharing
 app.use(
   cors({
-    origin: ["https://adroythub.vercel.app"],
+    origin: ["https://adroythub.vercel.app", "https://localhost:3000"],
     credentials: true,
   })
 );
