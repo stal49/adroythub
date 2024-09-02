@@ -95,12 +95,20 @@ const Footer = (props: Props) => {
                   Facebook
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="https://youtube.com/@adroythub?si=QN_IvR1Aq7mKhsCy"
+                  className="text-base text-black dark:text-gray-300 dark:hover:text-white"
+                >
+                  Youtube
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <h3 className="text-[20px] font-[600] text-black dark:text-white pb-3">Contact Info</h3>
             <p className="text-base text-black dark:text-gray-300 dark:hover:text-white pb-2">
-            Call Us: 9130061891
+            Call Us: 9130061891, +919665675234
             </p>
            
             <p className="text-base text-black dark:text-gray-300 dark:hover:text-white pb-2">

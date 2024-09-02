@@ -15,6 +15,7 @@ import { useLogOutQuery, useSocialAuthMutation } from "@/redux/features/auth/aut
 import { toast } from "react-hot-toast";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Loader from "./Loader/Loader";
+import { useTheme } from "next-themes";
 
 
 type Props = {
@@ -26,6 +27,7 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
+  const { theme } = useTheme();
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
   const {data:userData,isLoading,refetch} = useLoadUserQuery(undefined,{});
@@ -104,13 +106,23 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                 href={"/"}
                 className={`text-[25px] font-Poppins font-[500] text-black dark:text-white`}
               >
-                <Image src={require("../../public/assests/logo.png")} 
+                {theme === "dark" ? (
+                <Image
+                    src={require("../../public/assests/logo-white.png")}
                     alt="logo"
-                    height={200}
                     width={200}
+                    height={200}
                     
-                    className="dark:filter invert  filter-none"
-                    ></Image> 
+                  />
+                ) : (
+                  <Image
+                    src={require("../../public/assests/logo.png")}
+                    alt="logo"
+                    
+                    width={200}
+                    height={200}
+                  />
+                )}
  
         
               </Link>

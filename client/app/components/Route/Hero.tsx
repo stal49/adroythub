@@ -49,7 +49,6 @@ const Hero: FC<Props> = (props) => {
          {data?.layout?.banner?.subTitle}
         </p>
         <br />
-        <br />
         <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] h-[50px] bg-transparent relative">
           <input
             type="search"
@@ -64,7 +63,6 @@ const Hero: FC<Props> = (props) => {
             <BiSearch className="text-white" size={30} />
           </div>
         </div>
-        <br />
         <br />
         <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] flex items-center">
           <Image
@@ -83,7 +81,7 @@ const Hero: FC<Props> = (props) => {
             className="rounded-full ml-[-20px]"
           />
           <p className="font-Josefin dark:text-[#edfff4] text-[#000000b3] 1000px:pl-3 text-[18px] font-[600]">
-            500K+ People already trusted us.{" "}
+            150K+ People already trusted us.{" "}
             <Link
               href="/courses"
               className="dark:text-[#46e256] text-[crimson]"

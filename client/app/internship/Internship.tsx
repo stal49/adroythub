@@ -195,9 +195,17 @@ const [isFormVisible, setFormVisible] = useState(false);
                         <li>Report Writing: Document project outcomes and provide insights through professional reports.</li>
                       </ul>
                     </ul>
+                    <div className="w-[95%] 800px:w-[85%] m-auto flex flex-col 800px:flex-row justify-center items-center 800px:items-center">
+                        <Image
+                          src={require("../../public/assests/internship1.png")} 
+                          alt="about us!"
+                          className="h-auto w-full 800px:w-[50%] mt-10 800px:mt-0 rounded-3xl p-4"
+                        /> 
+                    </div>
+                    
                     <p className="mt-4">
-                      <span className="text-gradient">3. Mentorship and Networking:</span> Work closely with experienced mentors who will guide you through your projects and help you navigate the professional world. In addition, you&apos;ll have the opportunity to network with industry professionals, opening doors to future career opportunities.
-                    </p>
+                               <span className="text-gradient">3. Mentorship and Networking:</span> Work closely with experienced mentors who will guide you through your projects and help you navigate the professional world. In addition, you&apos;ll have the opportunity to network with industry professionals, opening doors to future career opportunities.
+                             </p>
                     <p className="mt-4">
                       <span className="text-gradient">4. Career Advancement:</span> Many of our interns have gone on to secure full-time positions within Adsium Innovation or other leading companies. The experience and skills you gain here will give you a competitive edge in the job market.
                     </p>
