@@ -37,7 +37,7 @@ export default function RootLayout({
       >
         <Providers>
           <SessionProvider>
-            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Custom>
                 <div>{children}</div>
               </Custom>
