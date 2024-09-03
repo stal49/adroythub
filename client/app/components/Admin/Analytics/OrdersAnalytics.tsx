@@ -63,7 +63,7 @@ export default function OrdersAnalytics({ isDashboard }: Props) {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className={isDashboard ? "h-[30vh]" : "h-screen"}>
+        <div className={isDashboard ? "h-[30vh] text-black dark:text-white" : "h-screen text-black dark:text-white"}>
           <div
             className={isDashboard ? "mt-[0px] pl-[40px] mb-2" : "mt-[50px]"}
           >

@@ -51,7 +51,7 @@ const CourseAnalytics = (props: Props) => {
             </p>
           </div>
 
-          <div className="w-full h-[90%] flex items-center justify-center">
+          <div className="w-full h-[90%] flex items-center justify-center text-black dark:text-white">
             <ResponsiveContainer width="90%" height="50%">
               <BarChart width={150} height={300} data={analyticsData}>
                 <XAxis dataKey="name">
