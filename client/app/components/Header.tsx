@@ -108,7 +108,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
               >
                 {theme === "dark" ? (
                 <Image
-                    src={require("../../public/assests/logo-white.png")}
+                    src={require("../../public/assests/lo.png")}
                     alt="logo"
                     width={200}
                     height={200}
@@ -118,7 +118,6 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                   <Image
                     src={require("../../public/assests/logo.png")}
                     alt="logo"
-                    
                     width={200}
                     height={200}
                   />

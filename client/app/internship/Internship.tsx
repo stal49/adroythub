@@ -325,16 +325,16 @@ const [isFormVisible, setFormVisible] = useState(false);
                     <div className="text-[16px] sm:text-[18px] lg:text-[20px] font-Poppins mx-4 sm:mx-8 lg:mx-20">
                       <ul className="list-disc list-inside space-y-4">
                         <li>
-                          IT Project: An intern developed an e-commerce platform that’s now driving significant sales for a local business.
+                        <span className="text-gradient">IT Project</span> : An intern developed an e-commerce platform that’s now driving significant sales for a local business.
                         </li>
                         <li>
-                          Programming Project: An intern built a Python-based data analytics tool that’s improving decision-making for a client.
+                        <span className="text-gradient">Programming Project</span> : An intern built a Python-based data analytics tool that’s improving decision-making for a client.
                         </li>
                         <li>
-                          Marketing Project: An intern managed a social media campaign that increased a startup’s followers by 50% and boosted engagement by 30%.
+                        <span className="text-gradient">Marketing Project</span> : An intern managed a social media campaign that increased a startup’s followers by 50% and boosted engagement by 30%.
                         </li>
                         <li>
-                          Business Communication Project: An intern created client presentations that secured a major client for the company.
+                        <span className="text-gradient">Business Communication Project</span> : An intern created client presentations that secured a major client for the company.
                         </li>
                       </ul>
                     </div>

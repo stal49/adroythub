@@ -55,7 +55,7 @@ const CourseData: FC<Props> = ({
   
 
   return (
-    <div className="w-[80%] m-auto mt-24 block">
+    <div className="w-[80%] m-auto mt-24 block text-black dark:text-white">
       <div>
         <label className={`${styles.label} text-[20px]`} htmlFor="email">
           What are the benefits for students in this course?
