@@ -147,6 +147,7 @@ const AllInvoices = ({ isDashboard }: Props) => {
             }}
           >
             <DataGrid
+              className="text-black dark:text-white"
               checkboxSelection={isDashboard ? false : true}
               rows={rows}
               columns={columns}
