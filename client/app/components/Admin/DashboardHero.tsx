@@ -10,7 +10,7 @@ const DashboardHero = ({isDashboard}: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div>
+    <div className="text-black dark:text-white">
       <DashboardHeader open={open} setOpen={setOpen} />
       {
         isDashboard && (
