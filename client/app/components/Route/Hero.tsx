@@ -37,7 +37,7 @@ const Hero: FC<Props> = (props) => {
           width={1000}
           height={1000}
           alt=""
-          className="w-[800px] h-auto hero_animation flex justify-center"
+          className="w-[800px] h-auto flex justify-center transform transition-transform duration-1000 ease-in-out hover:scale-105"
         ></Image>
       </div>
       <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-center mt-[150px">
