@@ -45,7 +45,7 @@ type Question = {
     },
     {
       id: 2,
-      question: "Can I apply if I haven&apos;t completed my Adroythub course yet?",
+      question: "Can I apply if I have not completed my Adroythub course yet?",
       answer: "The internship is only available to those who have completed their courses. We encourage you to apply once you have finished.",
     },
     {
