@@ -92,7 +92,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
   }, [isLoading, ordersLoading, data, ordersData]);
 
   return (
-    <div className="mt-[30px] min-h-screen">
+    <div className="mt-[30px] min-h-screen text-black dark:text-white">
       <div className="grid grid-cols-[75%,25%]">
         <div className="p-8 ">
           <UserAnalytics isDashboard={true} />
