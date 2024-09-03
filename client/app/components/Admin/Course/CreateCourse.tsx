@@ -116,7 +116,7 @@ const CreateCourse = (props: Props) => {
   };
 
   return (
-    <div className="w-full flex min-h-screen">
+    <div className="w-full flex min-h-screen text-black dark:text-white">
       <div className="w-[80%]">
         {active === 0 && (
           <CourseInformation
