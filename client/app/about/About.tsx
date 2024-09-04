@@ -173,52 +173,54 @@ const About = () => {
         </h1>
       </div>
   
-      <div className="flex justify-center space-x-4 mb-8">
-        <button
-          onClick={handlePrev}
-          aria-label="Previous"
-          className="p-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-all"
-        >
-          <ChevronLeftIcon className="h-6 w-6" />
-        </button>
-        <button
-          onClick={handleNext}
-          aria-label="Next"
-          className="p-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-all"
-        >
-          <ChevronRightIcon className="h-6 w-6" />
-        </button>
-      </div>
-  
-      <div className="relative overflow-hidden">
+      <div className="relative mb-8">
+  <div className="relative overflow-hidden px-4 py-8 md:px-8 md:py-16">
+    <button
+      onClick={handlePrev}
+      aria-label="Previous"
+      className="absolute left-2 top-1/2 transform -translate-y-1/2 p-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-all md:left-4 z-10"
+    >
+      <ChevronLeftIcon className="h-6 w-6 md:h-8 md:w-8" />
+    </button>
+
+    <div
+      className="flex transition-transform duration-500"
+      style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+    >
+      {testimonials.map((testimonial) => (
         <div
-          className="flex transition-transform duration-500"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          key={testimonial.id}
+          className="flex-none w-full flex-shrink-0"
         >
-          {testimonials.map((testimonial) => (
-            <div
-              key={testimonial.id}
-              className="flex-none w-full flex-shrink-0 px-4 py-8 md:py-16 md:px-8"
-            >
-              <div className="flex flex-col md:flex-row items-center">
-                <div className="w-full md:w-1/3 flex justify-center mb-4 md:mb-0">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    height={100}
-                    width={300}
-                    className="w-[auto] h-[auto] md:w-full md:h-auto rounded-lg shadow-lg object-cover"
-                  />
-                </div>
-                <div className="w-full md:w-2/3 text-center md:text-left md:pl-8">
-                  <p className="text-lg text-black dark:text-white mb-4">{testimonial.review}</p>
-                  <p className="text-xl font-semibold text-gradient">{testimonial.name}</p>
-                </div>
-              </div>
+          <div className="flex flex-col md:flex-row items-center pr-10 pl-10">
+            <div className="w-full md:w-1/3 flex justify-center mb-4 md:mb-0">
+              <Image
+                src={testimonial.image}
+                alt={testimonial.name}
+                height={100}
+                width={300}
+                className="w-[auto] h-[auto] md:w-full md:h-auto rounded-lg shadow-lg object-cover"
+              />
             </div>
-          ))}
+            <div className="w-full md:w-2/3 text-center md:text-left md:pl-8">
+              <p className="text-lg text-black dark:text-white mb-4">{testimonial.review}</p>
+              <p className="text-xl font-semibold text-gradient">{testimonial.name}</p>
+            </div>
+          </div>
         </div>
-      </div>
+      ))}
+    </div>
+
+    <button
+      onClick={handleNext}
+      aria-label="Next"
+      className="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-all md:right-4 z-10"
+    >
+      <ChevronRightIcon className="h-6 w-6 md:h-8 md:w-8" />
+    </button>
+  </div>
+</div>
+
   
       <div className="mt-12 text-gradient2 text-[16px] sm:text-[18px] lg:text-[20px] font-Poppins mx-4 sm:mx-8 lg:mx-12">
         At Adroythub, we believe in the power of collaboration to deliver high-quality education to our learners. We proudly partner with a diverse group of experienced course-selling teachers who bring their unique expertise and insights to our platform. By working together, we ensure that our students have access to a wide array of courses that are both relevant and impactful. Our partnerships allow us to continually expand our offerings, providing learners with the tools and knowledge they need to succeed in today&apos;s competitive environment.
