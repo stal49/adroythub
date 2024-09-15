@@ -173,6 +173,7 @@ const CourseContentMedia = ({
     reviewError,
     replySuccess,
     replyError,
+    refetch,
   ]);
 
   const handleAnswerSubmit = () => {

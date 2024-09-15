@@ -18,8 +18,7 @@ const nextConfig = {
   },
   experimental: {
     // Remove invalid keys reactRoot and suppressHydrationWarning
-        reactRoot: true,
-        suppressHydrationWarning: true,
+        
   },
 }
 

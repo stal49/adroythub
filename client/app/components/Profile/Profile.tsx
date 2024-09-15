@@ -49,7 +49,7 @@ const Profile: FC<Props> = ({ user }) => {
         .filter((course: any) => course !== undefined);
       setCourses(filteredCourses);
     }
-  }, [data]);
+  }, [data, fetch]);
 
   return (
     <div className="w-[85%] flex mx-auto">

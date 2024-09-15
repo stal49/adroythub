@@ -63,7 +63,7 @@ const CheckOutForm = ({ data,user,refetch }: Props) => {
         toast.error(errorMessage.data.message);
       }
    }
-  }, [orderData,error])
+  }, [orderData,error, refetch])
   
 
   return (
