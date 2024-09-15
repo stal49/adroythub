@@ -24,7 +24,7 @@ exports.app.use(express_1.default.json({ limit: "50mb" }));
 exports.app.use((0, cookie_parser_1.default)());
 // cors => cross origin resource sharing
 exports.app.use((0, cors_1.default)({
-    origin: ["https://adroythub.vercel.app", "http://localhost:3000", "https://adroythub.netlify.app", "https://adroythub.com/", "https://66e718ed94e4b1231f1c40ed--adroythub.netlify.app/"],
+    origin: ["https://adroythub.vercel.app", "http://localhost:3000", "https://adroythub.netlify.app", "https://adroythub.com", "https://66e718ed94e4b1231f1c40ed--adroythub.netlify.app"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
