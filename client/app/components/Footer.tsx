@@ -97,7 +97,7 @@ const Footer = (props: Props) => {
               </li>
               <li>
                 <Link
-                  href="https://youtube.com/@adroythub?si=QN_IvR1Aq7mKhsCy"
+                  href="https://www.facebook.com/people/Adroyt-Hub/61554157947255/?mibextid=ZbWKwL"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-white"
                 >
                   Youtube
