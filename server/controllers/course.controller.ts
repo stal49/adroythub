@@ -489,3 +489,18 @@ export const generateVideoUrl = CatchAsyncError(
     }
   }
 );
+
+export const generateDriveVideoUrl = CatchAsyncError(
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { videoId } = req.body;
+
+      // Format the Google Drive embed URL
+      const embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
+
+      res.json({ embedUrl });
+    } catch (error: any) {
+      return next(new ErrorHandler(error.message, 400));
+    }
+  }
+);

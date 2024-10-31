@@ -17,6 +17,6 @@ courseRouter.put("/add-question", auth_1.isAutheticated, course_controller_1.add
 courseRouter.put("/add-answer", auth_1.isAutheticated, course_controller_1.addAnwser);
 courseRouter.put("/add-review/:id", auth_1.isAutheticated, course_controller_1.addReview);
 courseRouter.put("/add-reply", auth_1.isAutheticated, (0, auth_1.authorizeRoles)("admin"), course_controller_1.addReplyToReview);
-courseRouter.post("/getVdoCipherOTP", course_controller_1.generateVideoUrl);
+courseRouter.post("/getVdoCipherOTP", course_controller_1.generateDriveVideoUrl);
 courseRouter.delete("/delete-course/:id", auth_1.isAutheticated, (0, auth_1.authorizeRoles)("admin"), course_controller_1.deleteCourse);
 exports.default = courseRouter;

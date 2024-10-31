@@ -24,9 +24,9 @@ const CoursePlayer: FC<Props> = ({ videoUrl }) => {
 
   return (
     <div style={{position:"relative",paddingTop:"56.25%",overflow:"hidden"}}>
-      {videoData.otp && videoData.playbackInfo !== "" && (
+      { (
         <iframe
-          src={`https://player.vdocipher.com/v2/?otp=${videoData?.otp}&playbackInfo=${videoData.playbackInfo}`}
+          src={`https://drive.google.com/file/d/${videoUrl}/preview`}
           style={{
             position: "absolute",
             top: 0,
