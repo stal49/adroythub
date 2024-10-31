@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateVideoUrl = exports.deleteCourse = exports.getAdminAllCourses = exports.addReplyToReview = exports.addReview = exports.addAnwser = exports.addQuestion = exports.getCourseByUser = exports.getAllCourses = exports.getSingleCourse = exports.editCourse = exports.uploadCourse = void 0;
+exports.generateDriveVideoUrl = exports.generateVideoUrl = exports.deleteCourse = exports.getAdminAllCourses = exports.addReplyToReview = exports.addReview = exports.addAnwser = exports.addQuestion = exports.getCourseByUser = exports.getAllCourses = exports.getSingleCourse = exports.editCourse = exports.uploadCourse = void 0;
 const catchAsyncErrors_1 = require("../middleware/catchAsyncErrors");
 const ErrorHandler_1 = __importDefault(require("../utils/ErrorHandler"));
 const cloudinary_1 = __importDefault(require("cloudinary"));
@@ -337,6 +337,17 @@ exports.generateVideoUrl = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, r
             },
         });
         res.json(response.data);
+    }
+    catch (error) {
+        return next(new ErrorHandler_1.default(error.message, 400));
+    }
+});
+exports.generateDriveVideoUrl = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, next) => {
+    try {
+        const { videoId } = req.body;
+        // Format the Google Drive embed URL
+        const embedUrl = `https://drive.google.com/file/d/${videoId}/preview`;
+        res.json({ embedUrl });
     }
     catch (error) {
         return next(new ErrorHandler_1.default(error.message, 400));
