@@ -75,6 +75,7 @@ const Footer = (props: Props) => {
                 <Link
                   href="https://www.linkedin.com/company/adroyt-hub/"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-white"
+                  target='_blank'
                 >
                   LinkedIn
                 </Link>
@@ -83,22 +84,25 @@ const Footer = (props: Props) => {
                 <Link
                   href="https://www.instagram.com/adroythub?igsh=MWdsYmY2MHdiajQ5cw=="
                   className="text-base text-black dark:text-gray-300 dark:hover:text-white"
+                  target='_blank'
                 >
                   Instagram
                 </Link>
               </li>
               <li>
                 <Link
-                  href="https://www.facebook.com/share/w93zk4ycwr43EDwA/?mibextid=qi2Omg"
+                  href="https://www.facebook.com/people/Adroyt-Hub/61554157947255/?mibextid=ZbWKwL"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-white"
+                  target='_blank'
                 >
                   Facebook
                 </Link>
               </li>
               <li>
                 <Link
-                  href="https://www.facebook.com/people/Adroyt-Hub/61554157947255/?mibextid=ZbWKwL"
+                  href="https://youtube.com/@adroythub?si=QN_IvR1Aq7mKhsCy"
                   className="text-base text-black dark:text-gray-300 dark:hover:text-white"
+                  target='_blank'
                 >
                   Youtube
                 </Link>
