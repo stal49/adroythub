@@ -221,7 +221,7 @@ const CourseDetails = ({
                   {data.price === 0 ? "Free" : data.price + "₹"}
                 </h1>
                 <h5 className="pl-3 text-[20px] mt-2 line-through opacity-80 text-black dark:text-white">
-                  {data.estimatedPrice}₹
+                  {data.estimatedPrice} ₹
                 </h5>
 
                 <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">
