@@ -65,19 +65,19 @@ const testimonials = [
 },
 {
   id: '10',
-  name: 'Radha Devi Goenka College for Women Akola',
+  name: 'Mauli Science Academy, Khamgaon Akola',
   image: require('@/public/assests/ws15.jpeg'),
   review: 'The workshop at Mauli Science Academy, Khamgaon, was an incredible success! Participants enthusiastically embraced the hands-on approach, which allowed them to delve deeply into practical learning. The response from students was overwhelmingly positive, with many appreciating the engaging and informative sessions delivered by our expert trainers. Covering the latest industry trends and techniques, the workshop offered students invaluable insights and interactive experiences. Numerous participants shared how the sessions significantly enhanced their confidence and skillsets. We are delighted to have made such a meaningful impact and look forward to more opportunities to inspire and empower learners!',
 },
 {
   id: '11',
-  name: 'Radha Devi Goenka College for Women Akola',
+  name: 'Mauli Science Academy, Khamgaon Akola',
   image: require('@/public/assests/ws16.jpeg'),
   review: 'The workshop at Mauli Science Academy, Khamgaon, was an incredible success! Participants enthusiastically embraced the hands-on approach, which allowed them to delve deeply into practical learning. The response from students was overwhelmingly positive, with many appreciating the engaging and informative sessions delivered by our expert trainers. Covering the latest industry trends and techniques, the workshop offered students invaluable insights and interactive experiences. Numerous participants shared how the sessions significantly enhanced their confidence and skillsets. We are delighted to have made such a meaningful impact and look forward to more opportunities to inspire and empower learners!',
 },
 {
   id: '12',
-  name: 'Radha Devi Goenka College for Women Akola',
+  name: 'Mauli Science Academy, Khamgaon Akola',
   image: require('@/public/assests/ws17.jpeg'),
   review: 'The workshop at Mauli Science Academy, Khamgaon, was an incredible success! Participants enthusiastically embraced the hands-on approach, which allowed them to delve deeply into practical learning. The response from students was overwhelmingly positive, with many appreciating the engaging and informative sessions delivered by our expert trainers. Covering the latest industry trends and techniques, the workshop offered students invaluable insights and interactive experiences. Numerous participants shared how the sessions significantly enhanced their confidence and skillsets. We are delighted to have made such a meaningful impact and look forward to more opportunities to inspire and empower learners!',
 },
