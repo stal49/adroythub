@@ -63,6 +63,24 @@ const testimonials = [
   image: require('@/public/assests/ws14.jpeg'),
   review: 'The workshop at Radha Devi Goenka College for Women Akola, was an inspiring event that left a lasting impact on both students and faculty. Our team introduced a variety of practical sessions that aligned perfectly with the students academic curriculum and future career aspirations. The enthusiasm and eagerness to learn demonstrated by the participants made the workshop particularly rewarding. The colleges commitment to providing quality education was evident in their support and organization, which contributed significantly to the workshops success. We are proud to have been part of this enriching experience and look forward to more such collaborations in the future.',
 },
+{
+  id: '10',
+  name: 'Radha Devi Goenka College for Women Akola',
+  image: require('@/public/assests/ws15.jpeg'),
+  review: 'The workshop at Mauli Science Academy, Khamgaon, was an incredible success! Participants enthusiastically embraced the hands-on approach, which allowed them to delve deeply into practical learning. The response from students was overwhelmingly positive, with many appreciating the engaging and informative sessions delivered by our expert trainers. Covering the latest industry trends and techniques, the workshop offered students invaluable insights and interactive experiences. Numerous participants shared how the sessions significantly enhanced their confidence and skillsets. We are delighted to have made such a meaningful impact and look forward to more opportunities to inspire and empower learners!',
+},
+{
+  id: '11',
+  name: 'Radha Devi Goenka College for Women Akola',
+  image: require('@/public/assests/ws16.jpeg'),
+  review: 'The workshop at Mauli Science Academy, Khamgaon, was an incredible success! Participants enthusiastically embraced the hands-on approach, which allowed them to delve deeply into practical learning. The response from students was overwhelmingly positive, with many appreciating the engaging and informative sessions delivered by our expert trainers. Covering the latest industry trends and techniques, the workshop offered students invaluable insights and interactive experiences. Numerous participants shared how the sessions significantly enhanced their confidence and skillsets. We are delighted to have made such a meaningful impact and look forward to more opportunities to inspire and empower learners!',
+},
+{
+  id: '12',
+  name: 'Radha Devi Goenka College for Women Akola',
+  image: require('@/public/assests/ws17.jpeg'),
+  review: 'The workshop at Mauli Science Academy, Khamgaon, was an incredible success! Participants enthusiastically embraced the hands-on approach, which allowed them to delve deeply into practical learning. The response from students was overwhelmingly positive, with many appreciating the engaging and informative sessions delivered by our expert trainers. Covering the latest industry trends and techniques, the workshop offered students invaluable insights and interactive experiences. Numerous participants shared how the sessions significantly enhanced their confidence and skillsets. We are delighted to have made such a meaningful impact and look forward to more opportunities to inspire and empower learners!',
+},
 
 ];
 
