@@ -136,7 +136,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                   className="cursor-pointer dark:text-white text-black"
                   onClick={() => setOpenSidebar(true)}
                 />
-              </div>
+             
               {userData ? (
                 <Link href={"/profile"}>
                   <Image
@@ -155,6 +155,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                   onClick={() => setOpen(true)}
                 />
               )}
+               </div>
             </div>
           </div>
         </div>
