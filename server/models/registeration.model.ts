@@ -34,15 +34,15 @@ const registerationSchema: Schema<IRegisteration> = new Schema({
     type: String,
     required: true,
   },
-      Current_Year :{
+  Current_Year : {
         type: String,
         required: true,
       },
-      Address : {
+Address : {
         type: String,
         required: true,
       },
-      Course_Interested :{
+    Course_Interested :{
         type: String,
         required: true,
       },
