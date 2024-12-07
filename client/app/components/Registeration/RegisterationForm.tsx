@@ -109,11 +109,11 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
             </label>
             <input
               type="text"
-              name="courseCompleted"
+              name="College"
               value={formData.College}
               onChange={handleChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
-              placeholder="Name of Course completed on Adroythub"
+              placeholder="Your College"
               required
             />
           </div>
@@ -123,11 +123,11 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
             </label>
             <input
               type="text"
-              name="highestQualification"
+              name="CurrentYear"
               value={formData.Current_Year}
               onChange={handleChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
-              placeholder="Your highest qualification and field of study"
+              placeholder="Year"
               required
             />
           </div>
@@ -137,11 +137,11 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
             </label>
             <input
               type="text"
-              name="highestQualification"
+              name="Address"
               value={formData.Address}
               onChange={handleChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
-              placeholder="Your highest qualification and field of study"
+              placeholder="Your Address"
               required
             />
           </div>
@@ -151,11 +151,11 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
             </label>
             <input
               type="text"
-              name="highestQualification"
+              name="CourseInterested"
               value={formData.Course_Interested}
               onChange={handleChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
-              placeholder="Your highest qualification and field of study"
+              placeholder="Course Interested"
               required
             />
           </div>
