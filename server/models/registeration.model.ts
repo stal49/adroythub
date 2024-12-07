@@ -5,9 +5,9 @@ export interface IRegisteration extends Document {
   email: string;
   mobileNumber: string;
   College : string,
-  Current_Year : string,
+  CurrentYear : string,
   Address : string,
-  Course_Interested : string,
+  CourseInterested : string,
 }
 
 const registerationSchema: Schema<IRegisteration> = new Schema({
@@ -34,7 +34,7 @@ const registerationSchema: Schema<IRegisteration> = new Schema({
     type: String,
     required: true,
   },
-  Current_Year : {
+  CurrentYear : {
         type: String,
         required: true,
       },
@@ -42,7 +42,7 @@ Address : {
         type: String,
         required: true,
       },
-    Course_Interested :{
+    CourseInterested :{
         type: String,
         required: true,
       },

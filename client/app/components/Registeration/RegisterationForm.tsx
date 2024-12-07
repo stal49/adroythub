@@ -11,9 +11,9 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
     email: "",
     mobileNumber: "",
     College: "",
-    Current_Year: "",
+    CurrentYear: "",
     Address : "",
-    Course_Interested : "",
+    CourseInterested : "",
     
   });
 
@@ -42,7 +42,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
       }
 
       const data = await response.json();
-      toast.success("Enrollment successful!");
+      toast.success("Registeration successful!");
       onClose();
     } catch (error) {
       console.error("Error:", error);
@@ -124,7 +124,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
             <input
               type="text"
               name="CurrentYear"
-              value={formData.Current_Year}
+              value={formData.CurrentYear}
               onChange={handleChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
               placeholder="Year"
@@ -152,7 +152,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
             <input
               type="text"
               name="CourseInterested"
-              value={formData.Course_Interested}
+              value={formData.CourseInterested}
               onChange={handleChange}
               className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
               placeholder="Course Interested"

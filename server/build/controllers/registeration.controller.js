@@ -7,16 +7,16 @@ exports.createRegisteration = void 0;
 const registeration_model_1 = __importDefault(require("../models/registeration.model")); // Import your model
 const createRegisteration = async (req, res) => {
     try {
-        const { fullName, email, mobileNumber, College, Current_Year, Address, Course_Interested, } = req.body;
+        const { fullName, email, mobileNumber, College, CurrentYear, Address, CourseInterested, } = req.body;
         // Create a new internship enrollment
         const newRegisteration = new registeration_model_1.default({
             fullName,
             email,
             mobileNumber,
             College,
-            Current_Year,
+            CurrentYear,
             Address,
-            Course_Interested,
+            CourseInterested,
         });
         // Save to database
         await newRegisteration.save();

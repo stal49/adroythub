@@ -3,9 +3,9 @@ import Registeration from "../models/registeration.model";// Import your model
 
 export const createRegisteration = async (req: Request, res: Response) => {
   try {
-    const { fullName, email, mobileNumber, College, Current_Year,
+    const { fullName, email, mobileNumber, College, CurrentYear,
         Address,
-        Course_Interested, } = req.body;
+        CourseInterested, } = req.body;
 
     // Create a new internship enrollment
     const newRegisteration = new Registeration({
@@ -13,9 +13,9 @@ export const createRegisteration = async (req: Request, res: Response) => {
       email,
       mobileNumber,
       College,
-      Current_Year,
+      CurrentYear,
       Address,
-      Course_Interested,
+      CourseInterested,
     });
 
     // Save to database

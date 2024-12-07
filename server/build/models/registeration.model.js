@@ -48,7 +48,7 @@ const registerationSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    Current_Year: {
+    CurrentYear: {
         type: String,
         required: true,
     },
@@ -56,7 +56,7 @@ const registerationSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    Course_Interested: {
+    CourseInterested: {
         type: String,
         required: true,
     },
