@@ -70,7 +70,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-white"
               placeholder="Your Name"
               required
             />
@@ -84,7 +84,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-white"
               placeholder="Your Email"
               required
             />
@@ -98,7 +98,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
               name="mobileNumber"
               value={formData.mobileNumber}
               onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-white"
               placeholder="Your Phone Number"
               required
             />
@@ -112,7 +112,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
               name="College"
               value={formData.College}
               onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-white"
               placeholder="Your College"
               required
             />
@@ -126,7 +126,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
               name="CurrentYear"
               value={formData.CurrentYear}
               onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-white"
               placeholder="Year"
               required
             />
@@ -140,7 +140,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
               name="Address"
               value={formData.Address}
               onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-white"
               placeholder="Your Address"
               required
             />
@@ -154,7 +154,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
               name="CourseInterested"
               value={formData.CourseInterested}
               onChange={handleChange}
-              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 dark:text-white"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-gray-700 text-gray-700 dark:text-white"
               placeholder="Course Interested"
               required
             />
