@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
-interface EnrollmentFormProps {
+interface RegisterationFormProps {
   onClose: () => void;
 }
 
-const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
+const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -171,4 +171,4 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
   );
 };
 
-export default EnrollmentForm;
+export default RegisterationForm;
