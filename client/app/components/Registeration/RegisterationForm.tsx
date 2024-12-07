@@ -59,7 +59,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
         >
           Close
         </button>
-        <h2 className="text-[24px] p-2 font-semibold">Registeration Form for Adroythub</h2>
+        <h2 className="text-[24px] p-2 font-semibold text-gray-700  dark:text-gray-300">Registeration Form for Adroythub</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
