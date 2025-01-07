@@ -27,7 +27,7 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logOutHandler = async () => {
     setLogout(true);
-    await signOut();
+    await signOut({ callbackUrl: "/" });
   };
 
   if (typeof window !== "undefined") {
