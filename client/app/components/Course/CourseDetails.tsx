@@ -40,8 +40,10 @@ const CourseDetails = ({
 
   const discountPercentengePrice = dicountPercentenge.toFixed(0);
 
-  const isPurchased =
-    user && user?.courses?.find((item: any) => item._id === data._id);
+  /*const isPurchased =
+    user && user?.courses?.find((item: any) => item._id === data._id);*/
+
+    const isPurchased = true;
 
   const handleOrder = (e: any) => {
     if (user) {
@@ -237,12 +239,18 @@ const CourseDetails = ({
                     Enter to Course
                   </Link>
                 ) : (
-                  <div
+                  /*<div
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     onClick={handleOrder}
                   >
                     Buy Now {data.price}₹
-                  </div>
+                  </div>*/
+                  <Link
+                    className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
+                    href={`/course-access/${data._id}`}
+                  >
+                    Enter to Course
+                  </Link>
                 )}
               </div>
               <br />
