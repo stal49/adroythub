@@ -40,11 +40,10 @@ const CourseDetails = ({
 
   const discountPercentengePrice = dicountPercentenge.toFixed(0);
 
-  /*const isPurchased =
-    user && user?.courses?.find((item: any) => item._id === data._id);*/
+  const isPurchased =
+    user && user?.courses?.find((item: any) => item._id === data._id);
 
-    const isPurchased = true;
-
+    
   const handleOrder = (e: any) => {
     if (user) {
       setOpen(true);
