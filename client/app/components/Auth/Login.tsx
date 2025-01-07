@@ -117,7 +117,6 @@ const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
           <FcGoogle size={30} className="cursor-pointer mr-2"
           onClick={() => signIn("google")}
           />
-          <AiFillGithub size={30} className="dark:filter-none filter invert cursor-pointer ml-2" onClick={() => signIn("github")} />
         </div>
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
           Not have any account?{" "}
