@@ -17,11 +17,11 @@ const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 type Props = {
   setOpen: any;
   data: any;
-  user:any;
-  refetch:any;
+  user: any;
+  refetch: any;
 };
 
-const CheckOutForm = ({ data,user,refetch }: Props) => {
+const CheckOutForm = ({ data, user, refetch }: Props) => {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<any>("");
@@ -30,14 +30,24 @@ const CheckOutForm = ({ data,user,refetch }: Props) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    // Check if the course is free
+    if (data.price === 0) {
+      // Skip Stripe payment and create the order immediately
+      createOrder({ courseId: data._id, payment_info: {} });
+      return;
+    }
+
     if (!stripe || !elements) {
       return;
     }
+
     setIsLoading(true);
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       redirect: "if_required",
     });
+
     if (error) {
       setMessage(error.message);
       setIsLoading(false);
@@ -48,23 +58,23 @@ const CheckOutForm = ({ data,user,refetch }: Props) => {
   };
 
   useEffect(() => {
-   if(orderData){
-    refetch();
-    socketId.emit("notification", {
-       title: "New Order",
-       message: `You have a new order from ${data.name}`,
-       userId: user._id,
-    });
-    redirect(`/course-access/${data._id}`);
-   }
-   if(error){
-    if ("data" in error) {
+    if (orderData) {
+      refetch();
+      socketId.emit("notification", {
+        title: "New Order",
+        message: `You have a new order from ${data.name}`,
+        userId: user._id,
+      });
+      redirect(`/course-access/${data._id}`);
+    }
+
+    if (error) {
+      if ("data" in error) {
         const errorMessage = error as any;
         toast.error(errorMessage.data.message);
       }
-   }
-  }, [orderData,error, refetch])
-  
+    }
+  }, [orderData, error, refetch]);
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
