@@ -43,13 +43,25 @@ const CourseDetails = ({
   const isPurchased =
     user && user?.courses?.find((item: any) => item._id === data._id);
 
-  const handleOrder = (e: any) => {
-    if (user) {
-      setOpen(true);
-    } else {
-      setRoute("Login");
-      openAuthModal(true);
-    }
+    const handleOrder = (e: any) => {
+      if (data.price === 0) {
+        // If the course is free, allow direct access
+        if (user) {
+          // Redirect to the course access page or unlock content
+          setRoute(`/course-access/${data._id}`);
+        } else {
+          setRoute("Login");
+          openAuthModal(true);
+        }
+      } else {
+        // For paid courses, open Stripe checkout
+        if (user) {
+          setOpen(true);
+        } else {
+          setRoute("Login");
+          openAuthModal(true);
+        }
+      }
   };
 
   return (
@@ -223,13 +235,12 @@ const CourseDetails = ({
                 <h5 className="pl-3 text-[20px] mt-2 line-through opacity-80 text-black dark:text-white">
                   {data.estimatedPrice} ₹
                 </h5>
-
                 <h4 className="pl-5 pt-4 text-[22px] text-black dark:text-white">
                   {discountPercentengePrice}% Off
                 </h4>
               </div>
               <div className="flex items-center">
-                {isPurchased ? (
+                {isPurchased || data.price === 0 ? (
                   <Link
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/course-access/${data._id}`}
@@ -246,15 +257,9 @@ const CourseDetails = ({
                 )}
               </div>
               <br />
-              <p className="pb-1 text-black dark:text-white">
-                • Full lifetime access
-              </p>
-              <p className="pb-1 text-black dark:text-white">
-                • Certificate of completion
-              </p>
-              <p className="pb-3 800px:pb-1 text-black dark:text-white">
-                • Premium Support
-              </p>
+              <p className="pb-1 text-black dark:text-white">• Full lifetime access</p>
+              <p className="pb-1 text-black dark:text-white">• Certificate of completion</p>
+              <p className="pb-3 800px:pb-1 text-black dark:text-white">• Premium Support</p>
             </div>
           </div>
         </div>
