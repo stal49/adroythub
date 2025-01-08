@@ -238,18 +238,12 @@ const CourseDetails = ({
                     Enter to Course
                   </Link>
                 ) : (
-                  /*<div
+                  <div
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     onClick={handleOrder}
                   >
                     Buy Now {data.price}₹
-                  </div>*/
-                  <Link
-                    className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
-                    href={`/course-access/${data._id}`}
-                  >
-                    Enter to Course
-                  </Link>
+                  </div>
                 )}
               </div>
               <br />
