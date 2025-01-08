@@ -13,11 +13,20 @@ import { redis } from "../utils/redis";
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+
+
+interface ICreateOrderRequest extends Request {
+  body: {
+    courseId: string; // The type for courseId, change this based on your model
+    payment_info: any; // The type for payment_info, adjust this as needed
+  };
+}
+
 // create order
 export const createOrder = CatchAsyncError(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: ICreateOrderRequest, res: Response, next: NextFunction) => {
     try {
-      const { courseId, payment_info } = req.body as IOrder;
+      const { courseId, payment_info } = req.body;
 
       // Fetch course details
       const course: ICourse | null = await CourseModel.findById(courseId);
@@ -175,6 +184,8 @@ export const createOrder = CatchAsyncError(
     }
   }
 );
+
+
 
 // get All orders --- only for admin
 export const getAllOrders = CatchAsyncError(
