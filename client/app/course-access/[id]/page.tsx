@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import CourseContent from "@/app/components/Course/CourseContent";
 import Loader from "@/app/components/Loader/Loader";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
@@ -6,27 +6,29 @@ import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
 
 type Props = {
-    params:any;
-}
+  params: { id: string };
+};
 
 const Page = ({ params }: Props) => {
   const id = params.id;
-  const { isLoading, error, data, refetch } = useLoadUserQuery(undefined, {});
+  const { isLoading, error, data } = useLoadUserQuery(undefined, {});
 
   useEffect(() => {
     if (data) {
-      const isPurchased = data.user.courses.find(
-        (item: any) => item._id === id
-      );
-
-      // Check if the course price is 0 (free)
+      // Check if the course is free
       const course = data.user.courses.find((item: any) => item._id === id);
-      if (course?.price === 0 || isPurchased) {
-        // Allow access to course
+      if (course?.price === 0) {
+        return; // Allow access to free course
+      }
+
+      // Check if the user has purchased the course
+      const isPurchased = course !== undefined;
+      if (isPurchased) {
         return;
       }
 
-      redirect("/"); // If not purchased or free, redirect
+      // Redirect if the course is neither free nor purchased
+      redirect("/");
     }
 
     if (error) {
@@ -47,5 +49,4 @@ const Page = ({ params }: Props) => {
   );
 };
 
-
-export default Page
+export default Page;

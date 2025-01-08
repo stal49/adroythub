@@ -27,7 +27,7 @@ const CourseDetails = ({
   setRoute,
   setOpen: openAuthModal,
 }: Props) => {
-  const { data: userData,refetch } = useLoadUserQuery(undefined, {});
+  const { data: userData, refetch } = useLoadUserQuery(undefined, {});
   const [user, setUser] = useState<any>();
   const [open, setOpen] = useState(false);
 
@@ -43,7 +43,6 @@ const CourseDetails = ({
   const isPurchased =
     user && user?.courses?.find((item: any) => item._id === data._id);
 
-    
   const handleOrder = (e: any) => {
     if (user) {
       setOpen(true);
