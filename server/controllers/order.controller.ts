@@ -19,12 +19,84 @@ export const createOrder = CatchAsyncError(
     try {
       const { courseId, payment_info } = req.body as IOrder;
 
+      // Fetch course details
+      const course: ICourse | null = await CourseModel.findById(courseId);
+
+      if (!course) {
+        return next(new ErrorHandler("Course not found", 404));
+      }
+
+      // If the course price is 0, mark it as free and skip the payment process
+      if (course.price === 0) {
+        // If the course is free, no payment info is needed
+        const user = await userModel.findById(req.user?._id);
+
+        const courseExistInUser = user?.courses.some(
+          (course: any) => course._id.toString() === courseId
+        );
+
+        if (courseExistInUser) {
+          return next(
+            new ErrorHandler("You have already enrolled in this course", 400)
+          );
+        }
+
+        user?.courses.push(course?._id);
+
+        await redis.set(req.user?._id, JSON.stringify(user));
+
+        await user?.save();
+
+        // Send order confirmation email for free course
+        const mailData = {
+          order: {
+            _id: course._id.toString().slice(0, 6),
+            name: course.name,
+            price: course.price,
+            date: new Date().toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            }),
+          },
+        };
+
+        const html = await ejs.renderFile(
+          path.join(__dirname, "../mails/order-confirmation.ejs"),
+          { order: mailData }
+        );
+
+        try {
+          if (user) {
+            await sendMail({
+              email: user.email,
+              subject: "Order Confirmation",
+              template: "order-confirmation.ejs",
+              data: mailData,
+            });
+          }
+        } catch (error: any) {
+          return next(new ErrorHandler(error.message, 500));
+        }
+
+        // Notify user and update course purchase count
+        await NotificationModel.create({
+          user: user?._id,
+          title: "New Order",
+          message: `You have a new order for the free course ${course?.name}`,
+        });
+
+        course.purchased = course.purchased + 1;
+        await course.save();
+
+        return res.status(200).json({ success: true, message: "Course enrolled successfully" });
+      }
+
+      // Handle paid courses with payment info
       if (payment_info) {
         if ("id" in payment_info) {
           const paymentIntentId = payment_info.id;
-          const paymentIntent = await stripe.paymentIntents.retrieve(
-            paymentIntentId
-          );
+          const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
           if (paymentIntent.status !== "succeeded") {
             return next(new ErrorHandler("Payment not authorized!", 400));
@@ -42,12 +114,6 @@ export const createOrder = CatchAsyncError(
         return next(
           new ErrorHandler("You have already purchased this course", 400)
         );
-      }
-
-      const course:ICourse | null = await CourseModel.findById(courseId);
-
-      if (!course) {
-        return next(new ErrorHandler("Course not found", 404));
       }
 
       const data: any = {
@@ -121,7 +187,7 @@ export const getAllOrders = CatchAsyncError(
   }
 );
 
-//  send stripe publishble key
+// send stripe publishable key
 export const sendStripePublishableKey = CatchAsyncError(
   async (req: Request, res: Response) => {
     res.status(200).json({
