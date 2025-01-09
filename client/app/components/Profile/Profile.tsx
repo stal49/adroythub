@@ -29,8 +29,8 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logOutHandler = async () => {
     setLogout(true);
-    await signOut({ });
-    router.push("/");
+    await signOut({ callbackUrl: "https://www.adroythub.com"  });
+    
   };
 
   if (typeof window !== "undefined") {
