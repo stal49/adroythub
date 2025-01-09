@@ -20,60 +20,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 exports.createOrder = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, next) => {
     try {
         const { courseId, payment_info } = req.body;
-        // Fetch course details
-        const course = await course_model_1.default.findById(courseId);
-        if (!course) {
-            return next(new ErrorHandler_1.default("Course not found", 404));
-        }
-        // If the course price is 0, mark it as free and skip the payment process
-        if (course.price === 0) {
-            // If the course is free, no payment info is needed
-            const user = await user_model_1.default.findById(req.user?._id);
-            const courseExistInUser = user?.courses.some((course) => course._id.toString() === courseId);
-            if (courseExistInUser) {
-                return next(new ErrorHandler_1.default("You have already enrolled in this course", 400));
-            }
-            user?.courses.push(course?._id);
-            await redis_1.redis.set(req.user?._id, JSON.stringify(user));
-            await user?.save();
-            // Send order confirmation email for free course
-            const mailData = {
-                order: {
-                    _id: course._id.toString().slice(0, 6),
-                    name: course.name,
-                    price: course.price,
-                    date: new Date().toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                    }),
-                },
-            };
-            const html = await ejs_1.default.renderFile(path_1.default.join(__dirname, "../mails/order-confirmation.ejs"), { order: mailData });
-            try {
-                if (user) {
-                    await (0, sendMail_1.default)({
-                        email: user.email,
-                        subject: "Order Confirmation",
-                        template: "order-confirmation.ejs",
-                        data: mailData,
-                    });
-                }
-            }
-            catch (error) {
-                return next(new ErrorHandler_1.default(error.message, 500));
-            }
-            // Notify user and update course purchase count
-            await notification_Model_1.default.create({
-                user: user?._id,
-                title: "New Order",
-                message: `You have a new order for the free course ${course?.name}`,
-            });
-            course.purchased = course.purchased + 1;
-            await course.save();
-            return res.status(200).json({ success: true, message: "Course enrolled successfully" });
-        }
-        // Handle paid courses with payment info
         if (payment_info) {
             if ("id" in payment_info) {
                 const paymentIntentId = payment_info.id;
@@ -87,6 +33,10 @@ exports.createOrder = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, n
         const courseExistInUser = user?.courses.some((course) => course._id.toString() === courseId);
         if (courseExistInUser) {
             return next(new ErrorHandler_1.default("You have already purchased this course", 400));
+        }
+        const course = await course_model_1.default.findById(courseId);
+        if (!course) {
+            return next(new ErrorHandler_1.default("Course not found", 404));
         }
         const data = {
             courseId: course._id,
@@ -144,7 +94,7 @@ exports.getAllOrders = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, 
         return next(new ErrorHandler_1.default(error.message, 500));
     }
 });
-// send stripe publishable key
+//  send stripe publishble key
 exports.sendStripePublishableKey = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res) => {
     res.status(200).json({
         publishablekey: process.env.STRIPE_PUBLISHABLE_KEY,
@@ -155,7 +105,7 @@ exports.newPayment = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, ne
     try {
         const myPayment = await stripe.paymentIntents.create({
             amount: req.body.amount,
-            currency: "INR",
+            currency: "USD",
             metadata: {
                 company: "E-Learning",
             },
