@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import ProfileInfo from "./ProfileInfo";
 import ChangePassword from "./ChangePassword";
 import CourseCard from "../Course/CourseCard";
+import { useRouter } from "next/navigation";
 import { useGetUsersAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 };
 
 const Profile: FC<Props> = ({ user }) => {
+  const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const [logout, setLogout] = useState(false);
@@ -28,6 +30,7 @@ const Profile: FC<Props> = ({ user }) => {
   const logOutHandler = async () => {
     setLogout(true);
     await signOut({ });
+    router.push("/");
   };
 
   if (typeof window !== "undefined") {
