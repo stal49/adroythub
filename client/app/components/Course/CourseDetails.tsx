@@ -11,7 +11,12 @@ import CheckOutForm from "../Payment/CheckOutForm";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Image from "next/image";
 import { VscVerifiedFilled } from "react-icons/vsc";
-
+import { useCreateOrderMutation } from "@/redux/features/orders/ordersApi";
+import { toast } from "react-hot-toast";
+import { redirect } from "next/navigation";
+import socketIO from "socket.io-client";
+const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
   data: any;
@@ -36,10 +41,9 @@ const CourseDetails = ({
     setUser(userData?.user);
   }, [userData]);
 
-  const dicountPercentenge =
+  const discountPercentenge =
     ((data?.estimatedPrice - data.price) / data?.estimatedPrice) * 100;
-
-  const discountPercentengePrice = dicountPercentenge.toFixed(0);
+  const discountPercentengePrice = discountPercentenge.toFixed(0);
 
   const isPurchased =
     user && user?.courses?.find((item: any) => item._id === data._id);
@@ -61,7 +65,7 @@ const CourseDetails = ({
 
   const addFreeCourseToUser = async (user: any, course: any) => {
     try {
-      // Make a request to add the free course to the user's courses (You can call the backend API here)
+      // Make a request to add the free course to the user's courses (Backend call)
       const response = await fetch('/api/v1/order/create-order', {
         method: 'POST',
         headers: {
@@ -70,15 +74,19 @@ const CourseDetails = ({
         body: JSON.stringify({
           courseId: course._id,
           payment_info: {},  // No payment info for free course
+          isFree: true, // Mark the course as free
         }),
       });
 
       if (response.ok) {
         refetch(); // Refresh user data to include the newly added course
+        toast.success("Free course added to your account!");
       } else {
+        toast.error("Error adding free course.");
         console.error("Error adding free course");
       }
     } catch (error) {
+      toast.error("Error adding free course.");
       console.error("Error adding free course", error);
     }
   };
