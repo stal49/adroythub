@@ -67,6 +67,10 @@ const courseSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
+    isFree: {
+        type: Boolean,
+        default: false, // Default to false, meaning it's paid unless specified
+    },
     price: {
         type: Number,
         required: true,
