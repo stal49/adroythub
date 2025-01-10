@@ -66,7 +66,7 @@ const CourseDetails = ({
   const addFreeCourseToUser = async (user: any, course: any) => {
     try {
       // Make a request to add the free course to the user's courses (Backend call)
-      const response = await fetch('https://adroythub.onrender.com/api/v1/order/create-order', {
+      const response = await fetch('https://adroythub.onrender.com/api/v1/create-order', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
