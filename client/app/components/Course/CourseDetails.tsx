@@ -12,6 +12,7 @@ import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Image from "next/image";
 import { VscVerifiedFilled } from "react-icons/vsc";
 
+
 type Props = {
   data: any;
   stripePromise: any;
@@ -27,7 +28,7 @@ const CourseDetails = ({
   setRoute,
   setOpen: openAuthModal,
 }: Props) => {
-  const { data: userData,refetch } = useLoadUserQuery(undefined, {});
+  const { data: userData, refetch } = useLoadUserQuery(undefined, {});
   const [user, setUser] = useState<any>();
   const [open, setOpen] = useState(false);
 
@@ -45,10 +46,40 @@ const CourseDetails = ({
 
   const handleOrder = (e: any) => {
     if (user) {
-      setOpen(true);
+      if (data?.price === 0) {
+        // If the course is free, directly add the course to the user's list
+        addFreeCourseToUser(user, data);
+      } else {
+        // For paid courses, open the payment modal
+        setOpen(true);
+      }
     } else {
       setRoute("Login");
       openAuthModal(true);
+    }
+  };
+
+  const addFreeCourseToUser = async (user: any, course: any) => {
+    try {
+      // Make a request to add the free course to the user's courses (You can call the backend API here)
+      const response = await fetch('/api/v1/order/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          courseId: course._id,
+          payment_info: {},  // No payment info for free course
+        }),
+      });
+
+      if (response.ok) {
+        refetch(); // Refresh user data to include the newly added course
+      } else {
+        console.error("Error adding free course");
+      }
+    } catch (error) {
+      console.error("Error adding free course", error);
     }
   };
 
@@ -241,7 +272,7 @@ const CourseDetails = ({
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     onClick={handleOrder}
                   >
-                    Buy Now {data.price}₹
+                    {data.price === 0 ? "Enroll for Free" : "Buy Now " + data.price + "₹"}
                   </div>
                 )}
               </div>

@@ -35,7 +35,12 @@ const orderSchema = new mongoose_1.Schema({
     },
     payment_info: {
         type: Object,
-        // required: true
+        required: false
+    },
+    isFree: {
+        type: Boolean,
+        required: true,
+        default: false, // Default is false, indicating a paid course unless specified
     },
 }, { timestamps: true });
 const OrderModel = mongoose_1.default.model('Order', orderSchema);

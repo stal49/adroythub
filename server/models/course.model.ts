@@ -36,6 +36,7 @@ interface ICourseData extends Document {
   name: string;
   description: string;
   categories: string;
+  isFree: boolean;
   price: number;
   estimatedPrice?: number;
   thumbnail: object;
@@ -96,6 +97,10 @@ const courseSchema = new Schema<ICourse>({
   categories:{
     type:String,
     required: true,
+  },
+  isFree: {
+    type: Boolean,
+    default: false, // Default to false, meaning it's paid unless specified
   },
   price: {
     type: Number,
