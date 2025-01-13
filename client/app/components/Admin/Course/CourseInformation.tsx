@@ -19,8 +19,7 @@ const CourseInformation: FC<Props> = ({
   const [dragging, setDragging] = useState(false);
   const { data } = useGetHeroDataQuery("Categories", {});
   const [categories, setCategories] = useState([]);
-  const [isFree, setIsFree] = useState(false);
-
+  
 
   useEffect(() => {
     if (data) {
@@ -111,14 +110,6 @@ const CourseInformation: FC<Props> = ({
         <br />
         <div className="w-full flex justify-between">
           <div className="w-[45%]">
-            <label className={`${styles.label}`}>Is this course free? <input
-                    type="checkbox"
-                    checked={isFree}
-                    onChange={(e) => {
-                        setIsFree(e.target.checked); // Automatically set price to 0 for free courses
-                    }} 
-                    />
-            </label>
             <label className={`${styles.label}`}>Course Price</label>
             <input
               type="number"
