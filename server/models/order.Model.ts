@@ -21,11 +21,6 @@ const orderSchema = new Schema<IOrder>({
         type: Object,
         required: false
     },
-    isFree: {
-      type: Boolean,
-      required: true,
-      default: false, // Default is false, indicating a paid course unless specified
-    },
 },{timestamps: true});
 
 const OrderModel: Model<IOrder> = mongoose.model('Order',orderSchema);
