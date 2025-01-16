@@ -86,6 +86,8 @@ const Policy = (props: Props) => {
       <br /><br />
       At Adroythub, we strive to deliver the best learning experience. Refunds are applicable only under exceptional circumstances, such as duplicate payments or technical issues preventing course access. Refund requests must be submitted within 7 days of payment, along with valid proof of the issue.
 <br />
+The refunded amount will be processed and credited within 3 – 5 business days to the original mode of payment, 
+email us at official@adroythub.com.<br />
 All approved refunds will be processed within 7–10 working days. For further assistance, email us at official@adroythub.com. 
 <br /><br />
  <span className="text-gradient text-[20px]">Terms and Conditions</span>
