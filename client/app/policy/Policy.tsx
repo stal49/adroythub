@@ -79,6 +79,45 @@ const Policy = (props: Props) => {
       - The right to rectification : You have the right to request that we correct any information you believe is inaccurate or complete information you believe is missing.
     </p>
   </div>
+
+  <div className="w-[95%] 800px:w-[92%] m-auto py-2 text-black dark:text-white px-3">
+    <br /><br />
+    <p className="text-[16px] 800px:text-[20px] font-Poppins m-5 800px:m-20 pt-5 800px:pt-10">
+      <span className="text-gradient text-[20px]">Refund Policy</span>
+      <br /><br />
+      At Adroythub, we strive to deliver the best learning experience. Refunds are applicable only under exceptional circumstances, such as duplicate payments or technical issues preventing course access. Refund requests must be submitted within 7 days of payment, along with valid proof of the issue.
+<br />
+All approved refunds will be processed within 7–10 working days. For further assistance, email us at official@adroythub.com. 
+<br /><br />
+ <span className="text-gradient text-[20px]">Terms and Conditions</span>
+      <br /><br />
+      1. Acceptance of Terms: By enrolling in any course on Adroythub, you agree to comply with these terms and conditions.
+
+
+2. Course Access: Access to courses is non-transferable and intended for personal use only. Sharing login credentials is prohibited.
+
+
+3. Payment and Fees: All fees are non-refundable unless stated in the refund policy. Full payment is required to access the course.
+
+
+4. Content Ownership: All course content, including videos, materials, and resources, is the intellectual property of Adroythub and cannot be copied, distributed, or reproduced without permission.
+
+
+5. Code of Conduct: Learners must adhere to ethical behavior. Harassment, abuse, or inappropriate conduct towards instructors, staff, or fellow learners will result in termination of access.
+
+
+6. Platform Updates: Adroythub reserves the right to update course content, pricing, and policies without prior notice.
+
+
+7. Liability: Adroythub is not liable for any direct or indirect damages resulting from the use of our platform or courses.
+
+
+8. Contact Us: For queries or support, reach us at official@adroythub.com.
+
+
+
+By using Adroythub, you confirm your understanding and agreement with these terms.</p>
+  </div>
 </div>
 
   );
