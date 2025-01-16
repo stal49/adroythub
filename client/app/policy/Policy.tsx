@@ -81,7 +81,6 @@ const Policy = (props: Props) => {
   </div>
 
   <div className="w-[95%] 800px:w-[92%] m-auto py-2 text-black dark:text-white px-3">
-    <br /><br />
     <p className="text-[16px] 800px:text-[20px] font-Poppins m-5 800px:m-20 pt-5 800px:pt-10">
       <span className="text-gradient text-[20px]">Refund Policy</span>
       <br /><br />
@@ -92,26 +91,25 @@ All approved refunds will be processed within 7–10 working days. For further a
  <span className="text-gradient text-[20px]">Terms and Conditions</span>
       <br /><br />
       1. Acceptance of Terms: By enrolling in any course on Adroythub, you agree to comply with these terms and conditions.
-
-
+<br />
 2. Course Access: Access to courses is non-transferable and intended for personal use only. Sharing login credentials is prohibited.
-
+<br />
 
 3. Payment and Fees: All fees are non-refundable unless stated in the refund policy. Full payment is required to access the course.
 
-
+<br />
 4. Content Ownership: All course content, including videos, materials, and resources, is the intellectual property of Adroythub and cannot be copied, distributed, or reproduced without permission.
-
+<br />
 
 5. Code of Conduct: Learners must adhere to ethical behavior. Harassment, abuse, or inappropriate conduct towards instructors, staff, or fellow learners will result in termination of access.
-
+<br />
 
 6. Platform Updates: Adroythub reserves the right to update course content, pricing, and policies without prior notice.
-
+<br />
 
 7. Liability: Adroythub is not liable for any direct or indirect damages resulting from the use of our platform or courses.
 
-
+<br />
 8. Contact Us: For queries or support, reach us at official@adroythub.com.
 
 
