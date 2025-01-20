@@ -23,7 +23,7 @@ app.use(cookieParser());
 // cors => cross origin resource sharing
 app.use(
   cors({
-    origin: [ "https://adroythub.netlify.app", "https://adroythub.com","https://66e718ed94e4b1231f1c40ed--adroythub.netlify.app"],
+    origin: [  "https://adroythub.com"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],

@@ -21,14 +21,6 @@ exports.uploadCourse = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, 
     try {
         const data = req.body;
         const thumbnail = data.thumbnail;
-        const isFree = data.isFree;
-        const price = data.price;
-        if (isFree && price !== 0) {
-            return next(new ErrorHandler_1.default('Free courses must have a price of 0.', 400));
-        }
-        if (!isFree && price <= 0) {
-            return next(new ErrorHandler_1.default('Paid courses must have a price greater than 0.', 400));
-        }
         if (thumbnail) {
             const myCloud = await cloudinary_1.default.v2.uploader.upload(thumbnail, {
                 folder: "courses",
@@ -49,17 +41,8 @@ exports.editCourse = (0, catchAsyncErrors_1.CatchAsyncError)(async (req, res, ne
     try {
         const data = req.body;
         const thumbnail = data.thumbnail;
-        const isFree = data.isFree;
-        const price = data.price;
         const courseId = req.params.id;
         const courseData = await course_model_1.default.findById(courseId);
-        if (isFree && price !== 0) {
-            return next(new ErrorHandler_1.default('Free courses must have a price of 0.', 400));
-        }
-        // If course is not free, price should be greater than 0
-        if (!isFree && price <= 0) {
-            return next(new ErrorHandler_1.default('Paid courses must have a price greater than 0.', 400));
-        }
         if (thumbnail && !thumbnail.startsWith("https")) {
             await cloudinary_1.default.v2.uploader.destroy(courseData.thumbnail.public_id);
             const myCloud = await cloudinary_1.default.v2.uploader.upload(thumbnail, {
