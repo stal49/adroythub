@@ -145,7 +145,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                     width={30}
                     height={30}
                     className="w-[30px] h-[30px] rounded-full cursor-pointer"
-                    style={{border: activeItem === 5 ? "2px solid #37a39a" : "none"}}
+                    style={{border: activeItem === 6 ? "2px solid #37a39a" : "none"}}
                   />
                 </Link>
               ) : (
@@ -176,7 +176,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                     width={30}
                     height={30}
                     className="w-[30px] h-[30px] rounded-full ml-[20px] cursor-pointer"
-                    style={{border: activeItem === 7 ? "2px solid #37a39a" : "none"}}
+                    style={{border: activeItem === 6 ? "2px solid #37a39a" : "none"}}
                   />
                 </Link>
               ) : (
