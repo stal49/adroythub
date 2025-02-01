@@ -128,12 +128,54 @@ const Signup: FC<Props> = ({ setRoute }) => {
         {errors.password && touched.password && (
           <span className="text-red-500 pt-2 block">{errors.password}</span>
         )}
+        <div className="w-full mt-5 relative mb-1">
+        <label className={`${styles.label}`} htmlFor="number">
+            Mobile No.
+          </label>
+          <input
+            type="number"
+            name=""
+            id="Mobile_no"
+            placeholder="9874561231"
+            className={`${errors.name && touched.name && "border-red-500"} ${
+              styles.input
+            }`}
+          />
+        </div>
+        <div className="w-full mt-5 relative mb-1">
+        <label className={`${styles.label}`} htmlFor="text">
+            Enter Name of Institute
+          </label>
+          <input
+            type="text"
+            name=""
+            id="Institute"
+            placeholder="johndoe"
+            className={`${errors.name && touched.name && "border-red-500"} ${
+              styles.input
+            }`}
+          />
+        </div>
+        <div className="w-full mt-5 relative mb-1">
+        <label className={`${styles.label}`} htmlFor="text">
+            Enter Promo Code
+          </label>
+          <input
+            type="text"
+            name=""
+            id="Promo_code"
+            placeholder="johndoe"
+            className={`${errors.name && touched.name && "border-red-500"} ${
+              styles.input
+            }`}
+          />
+        </div>
         <div className="w-full mt-5">
           <input type="submit" value="Sign Up" className={`${styles.button}`} />
         </div>
         <br />
         
-        <h5 className="text-center pt-4 font-Poppins text-[14px]">
+        <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
           Already have an account?{" "}
           <span
             className="text-[#2190ff] pl-1 cursor-pointer"
