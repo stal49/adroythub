@@ -8,16 +8,16 @@ export const store = configureStore({
     [apiSlice.reducerPath]: apiSlice.reducer,
     auth: authSlice,
   },
-  devTools: false,
+  devTools: process.env.NODE_ENV !== "production", // Enable devTools only in dev mode
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
-// call the load user function on every page load
-const initializeApp = async () => {
-  await store.dispatch(
-    apiSlice.endpoints.loadUser.initiate({}, { forceRefetch: true })
-  );
-};
+// ✅ Export RootState type for use in apiSlice.ts
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-initializeApp();
+// ✅ Ensure loadUser is only called in a browser environment
+if (typeof window !== "undefined") {
+  store.dispatch(apiSlice.endpoints.loadUser.initiate({}, { forceRefetch: true }));
+}

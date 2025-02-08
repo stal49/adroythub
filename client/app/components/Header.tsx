@@ -16,6 +16,8 @@ import { toast } from "react-hot-toast";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Loader from "./Loader/Loader";
 import { useTheme } from "next-themes";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/features/store";
 
 
 type Props = {
@@ -30,7 +32,8 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
   const { theme } = useTheme();
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
-  const {data:userData,isLoading,refetch} = useLoadUserQuery(undefined,{});
+  const { token } = useSelector((state: RootState) => state.auth);
+  const {data:userData,isLoading,refetch} = useLoadUserQuery(undefined, { skip: !token });
   const { data } = useSession();
   const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
