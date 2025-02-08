@@ -12,8 +12,10 @@ const authSlice = createSlice({
     userRegistration: (state, action: PayloadAction<{token: string}>) => {
       state.token = action.payload.token;
     },
-    userLoggedIn: (state, action:PayloadAction<{accessToken:string,user:string}>) => {
+    userLoggedIn: (state, action:PayloadAction<{accessToken:string,refreshToken:string,user:string}>) => {
       state.token = action.payload.accessToken;
+      console.log(action.payload.accessToken, 'by pratik')
+      localStorage.setItem("rt", action.payload.refreshToken);
       state.user = action.payload.user;
     },
     userLoggedOut: (state) => {

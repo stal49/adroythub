@@ -57,6 +57,7 @@ export const authApi = apiSlice.injectEndpoints({
           dispatch(
             userLoggedIn({
               accessToken: result.data.accessToken,
+              refreshToken: result.data.refreshToken,
               user: result.data.user,
             })
           );
@@ -82,6 +83,7 @@ export const authApi = apiSlice.injectEndpoints({
           dispatch(
             userLoggedIn({
               accessToken: result.data.accessToken,
+              refreshToken: result.data.refreshToken,
               user: result.data.user,
             })
           );

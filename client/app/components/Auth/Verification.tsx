@@ -25,6 +25,7 @@ const Verification: FC<Props> = ({ setRoute }) => {
     if (isSuccess) {
       toast.success("Account activated successfully");
       setRoute("Login");
+      window.location.reload();
     }
     if (error) {
       if ("data" in error) {

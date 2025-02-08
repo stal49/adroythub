@@ -22,6 +22,9 @@ const schema = Yup.object().shape({
     .email("Invalid email!")
     .required("Please enter your email!"),
   password: Yup.string().required("Please enter your password!").min(6),
+  mobile: Yup.string().matches(/^\d{10}$/, 'Invalid mobile number').required('Mobile number is required'),
+  institute:Yup.string().required("Please enter your Institue name!"),
+  code: Yup.string().required("Please enter your code!"),
 });
 
 const Signup: FC<Props> = ({ setRoute }) => {
@@ -44,11 +47,11 @@ const Signup: FC<Props> = ({ setRoute }) => {
   
 
   const formik = useFormik({
-    initialValues: { name: "", email: "", password: "" },
+    initialValues: { name: "", email: "", password: "", mobile: "", institute: "", code: "" },
     validationSchema: schema,
-    onSubmit: async ({name, email, password }) => {
+    onSubmit: async ({name, email, password, mobile, institute, code }) => {
       const data = {
-        name,email,password
+        name,email,password, mobile, institute, code
       };
       await register(data);
     },
@@ -135,9 +138,11 @@ const Signup: FC<Props> = ({ setRoute }) => {
           <input
             type="number"
             name=""
-            id="Mobile_no"
+            value={values.mobile}
+            onChange={handleChange}
+            id="mobile"
             placeholder="9874561231"
-            className={`${errors.name && touched.name && "border-red-500"} ${
+            className={`${errors.mobile && touched.mobile && "border-red-500"} ${
               styles.input
             }`}
           />
@@ -149,9 +154,11 @@ const Signup: FC<Props> = ({ setRoute }) => {
           <input
             type="text"
             name=""
-            id="Institute"
+            id="institute"
+            onChange={handleChange}
+            value={values.institute}
             placeholder="johndoe"
-            className={`${errors.name && touched.name && "border-red-500"} ${
+            className={`${errors.institute && touched.institute && "border-red-500"} ${
               styles.input
             }`}
           />
@@ -163,9 +170,11 @@ const Signup: FC<Props> = ({ setRoute }) => {
           <input
             type="text"
             name=""
-            id="Promo_code"
+            onChange={handleChange}
+            value={values.code}
+            id="code"
             placeholder="johndoe"
-            className={`${errors.name && touched.name && "border-red-500"} ${
+            className={`${errors.code && touched.code && "border-red-500"} ${
               styles.input
             }`}
           />

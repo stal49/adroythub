@@ -181,6 +181,13 @@ const AdminSidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <Item
+              title="Register Institute"
+              to="/admin/register-institute"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Typography
               variant="h5"
