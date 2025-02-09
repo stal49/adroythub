@@ -23,8 +23,8 @@ const schema = Yup.object().shape({
     .required("Please enter your email!"),
   password: Yup.string().required("Please enter your password!").min(6),
   mobile: Yup.string().matches(/^\d{10}$/, 'Invalid mobile number').required('Mobile number is required'),
-  institute:Yup.string().required("Please enter your Institue name!"),
-  code: Yup.string().required("Please enter your code!"),
+  institute:Yup.string(),
+  code: Yup.string(),
 });
 
 const Signup: FC<Props> = ({ setRoute }) => {
