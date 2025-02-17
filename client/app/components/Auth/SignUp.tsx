@@ -40,7 +40,7 @@ const Signup: FC<Props> = ({ setRoute }) => {
    if(error){
     if("data" in error){
       const errorData = error as any;
-      toast.error(errorData.data.message);
+      toast.error("Registerarion Failed");
     }
    }
   }, [isSuccess,error]);
