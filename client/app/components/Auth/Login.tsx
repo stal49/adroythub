@@ -48,7 +48,7 @@ const Login: FC<Props> = ({ setRoute, setOpen,refetch }) => {
     if (error) {
       if ("data" in error) {
         const errorData = error as any;
-        toast.error(errorData.data.message);
+        toast.error("Login Failed! Please enter valid credentials");
       }
     }
   }, [isSuccess, error, refetch, setOpen]);

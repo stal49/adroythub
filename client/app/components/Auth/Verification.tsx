@@ -30,7 +30,7 @@ const Verification: FC<Props> = ({ setRoute }) => {
     if (error) {
       if ("data" in error) {
         const errorData = error as any;
-        toast.error(errorData.data.message);
+        toast.error("Please enter valid OTP");
         setInvalidError(true);
       } else {
         console.log("An error occured:", error);
