@@ -54,6 +54,7 @@ const Header: FC<Props> = ({ activeItem }) => {
       if(data === null){
         if(isSuccess){
           toast.success("Login Successfully");
+          refetch();
         }
       }
       if(data === null && !isLoading && !userData){
@@ -85,6 +86,10 @@ const Header: FC<Props> = ({ activeItem }) => {
       refetch();
     }
   }, [token, refetch]);
+  useEffect(() => {
+    console.log("Token:", token);
+    console.log("UserData:", userData);
+  }, [token, userData]);
 
  
 
