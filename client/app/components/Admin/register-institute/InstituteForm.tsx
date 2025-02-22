@@ -90,7 +90,7 @@ const RegisterInstituteForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 shadow-md rounded-lg text-black dark:text-white ">
+    <div className="max-w-lg mx-auto p-6 shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Register Institute</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="instituteName" placeholder="Institute Name" onChange={handleChange} required className="w-full p-2 border border-gray-300 rounded" />

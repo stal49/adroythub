@@ -26,7 +26,7 @@ const Hero: FC<Props> = (props) => {
   return (
     <>
       <div className="w-full 1000px:flex items-center justify-center">
-        <div className="1000px:ml-[40px] items-center justify-center">
+        <div className="ml-[40px] ">
           <Image
             src={require('../../../public/assests/1.png')}
             width={1000}
@@ -35,7 +35,7 @@ const Hero: FC<Props> = (props) => {
             className="w-[800px] h-auto flex justify-center transform transition-transform duration-1000 ease-in-out hover:scale-105"
           />
         </div>
-        <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-center ">
+        <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-center mt-[150px]">
           <h2 className="dark:text-white text-[#000000c7] text-[30px] px-3 w-full 1000px:text-[70px] font-[600] font-Josefin py-2 1000px:leading-[75px] 1500px:w-[60%] 1100px:w-[78%] text-gradient mt-10">
             {title}
           </h2>
