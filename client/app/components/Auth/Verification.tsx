@@ -4,10 +4,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
 import { useSelector } from "react-redux";
-
-type Props = {
-  setRoute: (route: string) => void;
-};
+import { useRouter } from "next/navigation";
 
 type VerifyNumber = {
   "0": string;
@@ -16,16 +13,16 @@ type VerifyNumber = {
   "3": string;
 };
 
-const Verification: FC<Props> = ({ setRoute }) => {
+const Verification: FC = () => {
   const { token } = useSelector((state: any) => state.auth);
   const [activation, { isSuccess, error }] = useActivationMutation();
   const [invalidError, setInvalidError] = useState<boolean>(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (isSuccess) {
       toast.success("Account activated successfully");
-      setRoute("Login");
-      window.location.reload();
+      router.push("/login");
     }
     if (error) {
       if ("data" in error) {
@@ -36,7 +33,7 @@ const Verification: FC<Props> = ({ setRoute }) => {
         console.log("An error occured:", error);
       }
     }
-  }, [isSuccess, error, fetch]);
+  }, [isSuccess, error]);
 
   const inputRefs = [
     useRef<HTMLInputElement>(null),
@@ -117,7 +114,7 @@ const Verification: FC<Props> = ({ setRoute }) => {
         Go back to sign in?{" "}
         <span
           className="text-[#2190ff] pl-1 cursor-pointer"
-          onClick={() => setRoute("Login")}
+          onClick={() => router.push("/login")}
         >
           Sign in
         </span>

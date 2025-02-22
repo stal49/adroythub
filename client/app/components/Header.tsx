@@ -4,10 +4,6 @@ import React, { FC, useEffect, useState } from "react";
 import NavItems from "../utils/NavItems";
 import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
-import CustomModal from "../utils/CustomModal";
-import Login from "../components/Auth/Login";
-import SignUp from "../components/Auth/SignUp";
-import Verification from "../components/Auth/Verification";
 import Image from "next/image";
 import avatar from "../../public/assests/avatar.png";
 import { useSession } from "next-auth/react";
@@ -18,17 +14,17 @@ import Loader from "./Loader/Loader";
 import { useTheme } from "next-themes";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/features/store";
+import { useRouter } from "next/navigation";
 
 
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
   activeItem: number;
-  route: string;
-  setRoute: (route: string) => void;
+  
 };
 
-const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
+const Header: FC<Props> = ({ activeItem }) => {
   const { theme } = useTheme();
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -41,7 +37,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
     skip: !logout ? true : false,
   });
 
-
+  const router = useRouter();
 
   useEffect(() => {
     if(!isLoading){
@@ -155,7 +151,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                 <HiOutlineUserCircle
                   size={25}
                   className=" 800px:block cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpen(true)}
+                  onClick={() => router.push("/login")}
                 />
               )}
             </div>
@@ -186,7 +182,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
                 <HiOutlineUserCircle
                   size={25}
                   className="hidden 800px:block cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpen(true)}
+                  onClick={() => router.push("/login")}
                 />
               )}
               <br />
@@ -198,48 +194,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, open, setRoute }) => {
           </div>
         )}
       </div>
-      {route === "Login" && (
-        <>
-          {open && (
-            <CustomModal
-              open={open}
-              setOpen={setOpen}
-              setRoute={setRoute}
-              activeItem={activeItem}
-              component={Login}
-              refetch={refetch}
-            />
-          )}
-        </>
-      )}
-
-      {route === "Sign-Up" && (
-        <>
-          {open && (
-            <CustomModal
-              open={open}
-              setOpen={setOpen}
-              setRoute={setRoute}
-              activeItem={activeItem}
-              component={SignUp}
-            />
-          )}
-        </>
-      )}
-
-      {route === "Verification" && (
-        <>
-          {open && (
-            <CustomModal
-              open={open}
-              setOpen={setOpen}
-              setRoute={setRoute}
-              activeItem={activeItem}
-              component={Verification}
-            />
-          )}
-        </>
-      )}
+      
     </div>
     )
    }

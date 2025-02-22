@@ -29,6 +29,7 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logOutHandler = async () => {
     setLogout(true);
+    
     await signOut({ callbackUrl: "https://www.adroythub.com"  });
     
   };

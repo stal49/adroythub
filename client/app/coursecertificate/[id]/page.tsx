@@ -49,8 +49,6 @@ const Page = ({params}: Props) => {
         open={open}
         setOpen={setOpen}
         activeItem={activeItem}
-        setRoute={setRoute}
-        route={route}
       />
       <GenerateCertificate  id={id} courseName={courseName ?? "Course Name"}/>
       <Footer/>
