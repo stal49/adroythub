@@ -7,6 +7,8 @@ import Courses from "./components/Route/Courses";
 import Reviews from "./components/Route/Reviews";
 import FAQ from "./components/FAQ/FAQ";
 import Footer from "./components/Footer";
+import { useDispatch } from "react-redux";
+import { checkAuth } from "@/redux/features/auth/authSlice";
 
 
 interface Props {}
@@ -15,6 +17,11 @@ const Page: FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth()); // Check if token exists
+  }, [dispatch]);
 
   return (
     <div>
