@@ -41,6 +41,7 @@ const Login: FC<Props> = ({ setOpen, refetch }) => {
       toast.success("Login Successfully!");
       setOpen(false);
       router.push("/");
+      router.refresh();
     }
     if (error) {
       if ("data" in error) {

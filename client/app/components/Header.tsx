@@ -38,7 +38,7 @@ const Header: FC<Props> = ({ activeItem }) => {
   });
 
   const router = useRouter();
-
+  
   useEffect(() => {
     if(!isLoading){
       if (!userData) {
@@ -79,6 +79,12 @@ const Header: FC<Props> = ({ activeItem }) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      refetch();
+    }
+  }, [token, refetch]);
 
  
 

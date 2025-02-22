@@ -59,8 +59,7 @@ const CourseDetails = ({
         setOpen(true);
       }
     } else {
-      router.push("/login");
-      openAuthModal(true);
+      toast.error("Please Login first to access the course!");
     }
   };
 
