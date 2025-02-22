@@ -13,7 +13,7 @@ import Image from "next/image";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { useCreateOrderMutation } from "@/redux/features/orders/ordersApi";
 import { toast } from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import socketIO from "socket.io-client";
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
@@ -36,6 +36,7 @@ const CourseDetails = ({
   const { data: userData, refetch } = useLoadUserQuery(undefined, {});
   const [user, setUser] = useState<any>();
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setUser(userData?.user);
@@ -58,7 +59,7 @@ const CourseDetails = ({
         setOpen(true);
       }
     } else {
-      setRoute("Login");
+      router.push("/login");
       openAuthModal(true);
     }
   };
@@ -305,20 +306,7 @@ const CourseDetails = ({
         {open && (
           <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
             <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow p-3">
-              <div className="w-full flex justify-end">
-                <IoCloseOutline
-                  size={40}
-                  className="text-black cursor-pointer"
-                  onClick={() => setOpen(false)}
-                />
-              </div>
-              <div className="w-full">
-                {stripePromise && clientSecret && (
-                  <Elements stripe={stripePromise} options={{ clientSecret }}>
-                    <CheckOutForm setOpen={setOpen} data={data} user={user} refetch={refetch} />
-                  </Elements>
-                )}
-              </div>
+              <CheckOutForm courseId={data._id} amount={data.price} userId={user._id}/>
             </div>
           </div>
         )}

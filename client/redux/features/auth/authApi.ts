@@ -80,13 +80,13 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          dispatch(
-            userLoggedIn({
-              accessToken: result.data.accessToken,
-              refreshToken: result.data.refreshToken,
-              user: result.data.user,
-            })
-          );
+          // dispatch(
+            // userLoggedIn({
+            //   accessToken: result.data.accessToken,
+            //   refreshToken: result.data.refreshToken,
+            //   user: result.data.user,
+            // })
+          // );
         } catch (error: any) {
           console.log(error);
         }
@@ -118,3 +118,4 @@ export const {
   useSocialAuthMutation,
   useLogOutQuery
 } = authApi;
+

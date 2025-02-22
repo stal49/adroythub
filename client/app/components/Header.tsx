@@ -148,11 +148,10 @@ const Header: FC<Props> = ({ activeItem }) => {
                   />
                 </Link>
               ) : (
-                <HiOutlineUserCircle
-                  size={25}
-                  className=" 800px:block cursor-pointer dark:text-white text-black"
+                <button
+                  className=" 800px:block cursor-pointer text-white bg-gradient py-1 text-xs rounded-3xl px-3 md:py-2 md:px-6 md:text-base"
                   onClick={() => router.push("/login")}
-                />
+                >Sign Up</button>
               )}
             </div>
           </div>
@@ -179,11 +178,10 @@ const Header: FC<Props> = ({ activeItem }) => {
                   />
                 </Link>
               ) : (
-                <HiOutlineUserCircle
-                  size={25}
-                  className="hidden 800px:block cursor-pointer dark:text-white text-black"
+                <button
+                  className=" 800px:block cursor-pointer text-white bg-gradient py-1 text-xs rounded-3xl px-3 md:py-2 md:px-6 md:text-base"
                   onClick={() => router.push("/login")}
-                />
+                >Sign Up</button>
               )}
               <br />
               <br />
