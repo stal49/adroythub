@@ -31,8 +31,6 @@ Join Adroythub today to unlock your potential and achieve your dreams. Explore o
         open={open}
         setOpen={setOpen}
         activeItem={activeItem}
-        setRoute={setRoute}
-        route={route}
       />
       <Hero />
       <Courses />

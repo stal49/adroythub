@@ -58,8 +58,7 @@ const CourseDetailsPage = ({ id }: Props) => {
             keywords={data?.course?.tags}
           />
           <Header
-            route={route}
-            setRoute={setRoute}
+            
             open={open}
             setOpen={setOpen}
             activeItem={1}

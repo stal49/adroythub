@@ -18,7 +18,7 @@ type Props = {};
 const Page = (props: Props) => {
   return (
     <div>
-      <Header route="Login" setRoute={() => {}} open={false} setOpen={() => {}} activeItem={1} />
+      <Header open={false} setOpen={() => {}} activeItem={1} />
       <div className="w-[95%] 800px:w-[85%] m-auto min-h-[70vh]">
         <Heading
           title={"All courses - Adroythub"}
