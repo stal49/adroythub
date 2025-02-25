@@ -38,30 +38,14 @@ const Header: FC<Props> = ({ activeItem }) => {
   });
 
   const router = useRouter();
-  
+  const [show, setShow] = useState(token);
+
   useEffect(() => {
-    if(!isLoading){
-      if (!userData) {
-        if (data) {
-          socialAuth({
-            email: data?.user?.email,
-            name: data?.user?.name,
-            avatar: data.user?.image,
-          });
-          refetch();
-        }
-      }
-      if(data === null){
-        if(isSuccess){
-          toast.success("Login Successfully");
-          refetch();
-        }
-      }
-      if(data === null && !isLoading && !userData){
-          setLogout(true);
-      }
-    }
-  }, [data, userData,isLoading, refetch]);
+  if(token || userData){
+    setShow(token)
+  }
+  }, [data, userData, token ,isLoading, refetch]);
+  
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -147,7 +131,7 @@ const Header: FC<Props> = ({ activeItem }) => {
                   onClick={() => setOpenSidebar(true)}
                 />
               </div>
-              {userData ? (
+              {token ? (
                 <Link href={"/profile"}>
                   <Image
                     src={userData?.user.avatar ? userData.user.avatar.url : avatar}
