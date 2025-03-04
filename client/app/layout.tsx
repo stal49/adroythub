@@ -12,6 +12,9 @@ import Loader from "./components/Loader/Loader";
 import socketIO from "socket.io-client";
 const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
+import { ToastContainer } from 'react-toastify'
+import Script from "next/script";
+    
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -36,9 +39,11 @@ export default function RootLayout({
         className={`${poppins.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
       >
         <Providers>
+        <ToastContainer position='top-center' />
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Custom>
+              <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="beforeInteractive" />
                 <div>{children}</div>
               </Custom>
               <Toaster position="top-center" reverseOrder={false} />

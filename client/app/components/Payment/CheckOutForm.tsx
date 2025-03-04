@@ -2,11 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/features/store";
+import { updateUserCourses } from "@/redux/features/auth/authSlice";
 
-const CheckOutForm: React.FC<{courseId:string, amount:number, userId:string}> = ({ courseId, amount,userId }) => {
 
+interface CheckOutFormProps {
+  courseId: string;
+  amount: number;
+  userId: string;
+  setOpen: (open: boolean) => void; // Accept setOpen prop
+}
+
+const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, setOpen }) => {
+
+  const dispatch = useDispatch()
   const { token } = useSelector((state: RootState) => state.auth);
    const {user} = useSelector((state:any) => state.auth);
   const razorpayKey = process.env.VITE_RAZORPAY_KEY;
@@ -40,21 +50,35 @@ const CheckOutForm: React.FC<{courseId:string, amount:number, userId:string}> = 
     }
   };
 
+  const loadRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+  
   const handlePayment = async () => {
     if (!token) {
       toast.warn("Please login first.");
       return;
     }
-
+  
+    const isRazorpayLoaded = await loadRazorpay();
+    if (!isRazorpayLoaded) {
+      toast.error("Failed to load Razorpay. Please try again.");
+      return;
+    }
+  
     try {
-      // Step 1: Create an order
       const { data: order } = await axios.post(
         `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}adroyt/create-order`,
-        { amount: 100, currency: "INR", path:`/courses/${courseId}` },
+        { amount: 100, currency: "INR", path: `/courses/${courseId}` },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      // Step 2: Initialize Razorpay
+  
       const options = {
         key: razorpayKey,
         amount: order.amount,
@@ -64,9 +88,17 @@ const CheckOutForm: React.FC<{courseId:string, amount:number, userId:string}> = 
         order_id: order.id,
         handler: async (response: any) => {
           try {
-            // Step 3: Verify the payment
+            const response2 = await axios.post(
+              `${process.env.NEXT_PUBLIC_SERVER_URI}/create-order`,
+              {
+                courseId: courseId
+              },
+              { headers: { Authorization: `Bearer ${token}` } }
+            );
+            if(!response2.data.success) return
+            dispatch(updateUserCourses(courseId));
             const verification = await axios.post(
-              `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}adroyt/verify-payment`,
+              `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -74,8 +106,10 @@ const CheckOutForm: React.FC<{courseId:string, amount:number, userId:string}> = 
               },
               { headers: { Authorization: `Bearer ${token}` } }
             );
-
+  
             toast.success(verification.data.message);
+            setOpen(false);
+            console.log('hello', user, courseId)
           } catch (error: any) {
             toast.error(`Payment verification failed: ${error.response?.data?.error || error.message}`);
           }
@@ -87,14 +121,15 @@ const CheckOutForm: React.FC<{courseId:string, amount:number, userId:string}> = 
           color: "#3399cc",
         },
       };
-
+  
       const rzp = new (window as any).Razorpay(options);
       rzp.open();
     } catch (error: any) {
       toast.error(`Error: ${error.response?.data?.error || error.message}`);
+      console.log(error.message);
     }
   };
-
+  
   return (
     <div className="flex flex-col items-center justify-center h-screen w-screen px-4 py-6 bg-gray-50">
       <div className="max-w-md space-y-6">

@@ -50,10 +50,10 @@ const CourseDetails = ({
     user && user?.courses?.find((item: any) => item._id === data._id);
 
   const handleOrder = (e: any) => {
-    if (user) {
+    if (userData) {
       if (data?.price === 0) {
         // If the course is free, directly add the course to the user's list
-        addFreeCourseToUser(user, data);
+        addFreeCourseToUser(userData?.user, data);
       } else {
         // For paid courses, open the payment modal
         setOpen(true);
@@ -268,7 +268,7 @@ const CourseDetails = ({
                 </h4>
               </div>
               <div className="flex items-center">
-                {isPurchased ? (
+                {userData && userData?.user && userData?.user?.courses?.find((item: any) => item._id === data._id) ? (
                   <Link
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/course-access/${data._id}`}
@@ -305,7 +305,7 @@ const CourseDetails = ({
         {open && (
           <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
             <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow p-3">
-              <CheckOutForm courseId={data._id} amount={data.price} userId={user._id}/>
+              <CheckOutForm courseId={data._id} amount={data.price} userId={user._id} setOpen={setOpen}/>
             </div>
           </div>
         )}

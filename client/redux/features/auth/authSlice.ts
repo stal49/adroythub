@@ -13,6 +13,7 @@ const authSlice = createSlice({
     userRegistration: (state, action: PayloadAction<{ token: string }>) => {
       state.token = action.payload.token;
     },
+    
     userLoggedIn: (state, action: PayloadAction<{ accessToken: string; refreshToken: string; user: string }>) => {
       setCookie("at", action.payload.accessToken, 10);
       setCookie("user", JSON.stringify(action.payload.user), 10); 
