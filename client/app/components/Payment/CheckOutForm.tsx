@@ -89,7 +89,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
         handler: async (response: any) => {
           try {
             const response2 = await axios.post(
-              `${process.env.NEXT_PUBLIC_SERVER_URI}adroyt/create-order`,
+              `${process.env.NEXT_PUBLIC_SERVER_URI}/create-order`,
               {
                 courseId: courseId
               },
