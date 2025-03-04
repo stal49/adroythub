@@ -75,7 +75,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
     try {
       const { data: order } = await axios.post(
         `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}adroyt/create-order`,
-        { amount: 100, currency: "INR", path: `/courses/${courseId}` },
+        { amount: amount*100, currency: "INR", path: `/courses/${courseId}` },
         { headers: { Authorization: `Bearer ${token}` } }
       );
   
@@ -89,7 +89,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
         handler: async (response: any) => {
           try {
             const response2 = await axios.post(
-              `${process.env.NEXT_PUBLIC_SERVER_URI}/create-order`,
+              `${process.env.NEXT_PUBLIC_SERVER_URI}adroyt/create-order`,
               {
                 courseId: courseId
               },
@@ -98,7 +98,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
             if(!response2.data.success) return
             dispatch(updateUserCourses(courseId));
             const verification = await axios.post(
-              `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}verify-payment`,
+              `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}adroyt/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
