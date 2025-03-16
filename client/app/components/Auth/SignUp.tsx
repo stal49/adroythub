@@ -7,6 +7,7 @@ import { styles } from "../../../app/styles/style";
 import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Please enter your name!"),
@@ -25,6 +26,8 @@ const Signup: FC = () => {
   const [show, setShow] = useState(false);
   const [register, { data, error, isSuccess }] = useRegisterMutation();
   const router = useRouter();
+
+  
 
   useEffect(() => {
     if (isSuccess) {
@@ -85,7 +88,7 @@ const Signup: FC = () => {
         )}
         <div className="w-full mt-5 relative mb-1">
           <label className={`${styles.label}`} htmlFor="password">
-            Enter your password
+            Create your password
           </label>
           <input
             type={!show ? "password" : "text"}
@@ -127,7 +130,7 @@ const Signup: FC = () => {
         </div>
         <div className="w-full mt-5 relative mb-1">
           <label className={`${styles.label}`} htmlFor="institute">
-            Enter Name of Institute
+            Enter Name of Institute <span className="text-gray-500">(optional)</span>
           </label>
           <input
             type="text"
@@ -140,7 +143,7 @@ const Signup: FC = () => {
         </div>
         <div className="w-full mt-5 relative mb-1">
           <label className={`${styles.label}`} htmlFor="code">
-            Enter Promo Code
+            Enter Promo Code <span className="text-gray-500">(optional)</span>
           </label>
           <input
             type="text"
