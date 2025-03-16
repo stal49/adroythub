@@ -60,6 +60,7 @@ const CourseDetails = ({
       }
     } else {
       toast.error("Please Login first to access the course!");
+      router.push("/login")
     }
   };
 
