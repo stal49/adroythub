@@ -12,14 +12,15 @@ interface CheckOutFormProps {
   amount: number;
   userId: string;
   setOpen: (open: boolean) => void; // Accept setOpen prop
+  onPaymentSuccess: () => void;
 }
 
-const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, setOpen }) => {
+const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, setOpen,onPaymentSuccess }) => {
 
   const dispatch = useDispatch()
   const { token } = useSelector((state: RootState) => state.auth);
    const {user} = useSelector((state:any) => state.auth);
-  const razorpayKey = process.env.VITE_RAZORPAY_KEY;
+  const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
   const [paymentType, setPaymentType] = useState<"razorpay" | "phonepe" | null>(null);
 
   const checkServiceStatus = async () => {
@@ -75,7 +76,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
     try {
       const { data: order } = await axios.post(
         `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}adroyt/create-order`,
-        { amount: amount*100, currency: "INR", path: `/courses/${courseId}` },
+        { amount: amount*100, currency: "INR", courseId: courseId, path: `/courses/${courseId}` },
         { headers: { Authorization: `Bearer ${token}` } }
       );
   
@@ -108,6 +109,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
             );
   
             toast.success(verification.data.message);
+            onPaymentSuccess()
             setOpen(false);
             console.log('hello', user, courseId)
           } catch (error: any) {
@@ -131,34 +133,43 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
   };
   
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen px-4 py-6 bg-gray-50">
-      <div className="max-w-md space-y-6">
-          
-            <h1 className="text-2xl font-medium text-gray-700 text-center">Make a Payment</h1>
-            <div className="space-y-4">
-              <button
-                className="w-full p-3 bg-yellow-500 text-white rounded-xl hover:bg-yellow-600"
-                onClick={() => handlePaymentTypeSelection("phonepe")}
-              >
-                PhonePe (Not Available Now)
-              </button>
-              <button
-                className="w-full p-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600"
-                onClick={() => handlePaymentTypeSelection("razorpay")}
-              >
-                Razorpay
-              </button>
-            </div>
-            {paymentType === "razorpay" && (
-              <div className="mt-4">
-                <button
-                  className="w-full p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
-                  onClick={handlePayment}
-                >
-                  Proceed with Payment (₹1)
-                </button>
-              </div>
-            )}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+      <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md overflow-y-auto max-h-full px-6 py-12">
+        
+        {/* Close icon */}
+        <button
+          onClick={() => setOpen(false)}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-2xl"
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
+        <h1 className="text-2xl font-medium text-gray-700 text-center">Make a Payment</h1>
+        <div className="space-y-4 mt-6">
+          {/* <button
+            className="w-full p-3 bg-yellow-500 text-white rounded-xl hover:bg-yellow-600"
+            onClick={() => handlePaymentTypeSelection("phonepe")}
+          >
+            PhonePe (Not Available Now)
+          </button> */}
+          <button
+            className="w-full p-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600"
+            onClick={() => handlePaymentTypeSelection("razorpay")}
+          >
+            Razorpay
+          </button>
+        </div>
+        {paymentType === "razorpay" && (
+          <div className="mt-4">
+            <button
+              className="w-full p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+              onClick={handlePayment}
+            >
+              Proceed with Payment (₹1)
+            </button>
+          </div>
+        )}
         <div className="mt-8 text-center text-sm text-gray-500">
           <h2 className="font-semibold">Refund Policy</h2>
           <p className="mt-2">
@@ -170,7 +181,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
         </div>
       </div>
     </div>
-  );
+  );  
 };
 
 export default CheckOutForm;

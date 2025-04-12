@@ -11,6 +11,7 @@ import {
 } from "@/redux/features/orders/ordersApi";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
+import { toast } from "react-toastify";
 
 type Props = {
   id: string;
@@ -19,13 +20,21 @@ type Props = {
 const CourseDetailsPage = ({ id }: Props) => {
   const [route, setRoute] = useState("Login");
   const [open, setOpen] = useState(false);
-  const { data, isLoading } = useGetCourseDetailsQuery(id);
+  const { data, isLoading, refetch: refetchCourseDetails } = useGetCourseDetailsQuery(id);
   const { data: config } = useGetStripePublishablekeyQuery({});
   const [createPaymentIntent, { data: paymentIntentData }] =
     useCreatePaymentIntentMutation();
-  const { data: userData } = useLoadUserQuery(undefined, {});
+  const { data: userData, refetch: refetchUserData } = useLoadUserQuery(undefined, {});
+
   const [stripePromise, setStripePromise] = useState<any>(null);
   const [clientSecret, setClientSecret] = useState("");
+
+  const onPaymentSuccess = async () => {
+    toast.success("Payment Successful!");
+    
+    await refetchUserData(); // Refresh user data (already in your code)
+    await refetchCourseDetails(); // Refresh course details after payment
+  };
 
   useEffect(() => {
     if (config) {
@@ -70,6 +79,7 @@ const CourseDetailsPage = ({ id }: Props) => {
               clientSecret={clientSecret}
               setRoute={setRoute}
               setOpen={setOpen}
+              onPaymentSuccess={onPaymentSuccess}
             />
           )}
           <Footer />
