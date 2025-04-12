@@ -24,6 +24,7 @@ type Props = {
   clientSecret: string;
   setRoute: any;
   setOpen: any;
+  onPaymentSuccess: () => void;
 };
 
 const CourseDetails = ({
@@ -32,6 +33,7 @@ const CourseDetails = ({
   clientSecret,
   setRoute,
   setOpen: openAuthModal,
+  onPaymentSuccess
 }: Props) => {
   const { data: userData, refetch } = useLoadUserQuery(undefined, {});
   const [user, setUser] = useState<any>();
@@ -39,7 +41,14 @@ const CourseDetails = ({
   const router = useRouter();
 
   useEffect(() => {
+    console.log('userData?.user', userData?.user)
+    console.log('data._id', data._id)
     setUser(userData?.user);
+    if(userData?.user){
+      const isPurchased = userData?.user?.courses?.includes(data._id);
+      console.log('user?.courses', userData?.user?.courses)
+      console.log('isPurchasedisPurchased', isPurchased)
+    }
   }, [userData]);
 
   const discountPercentenge =
@@ -47,7 +56,7 @@ const CourseDetails = ({
   const discountPercentengePrice = discountPercentenge.toFixed(0);
 
   const isPurchased =
-    user && user?.courses?.find((item: any) => item._id === data._id);
+  userData?.user && userData?.user?.courses?.find((item: any) => item === data._id);
 
   const handleOrder = (e: any) => {
     if (userData) {
@@ -91,6 +100,12 @@ const CourseDetails = ({
       console.error("Error adding free course", error);
     }
   };
+
+    const onPaymentSuccesshalf = async () => {
+      onPaymentSuccess()
+      
+      await refetch()
+    };
 
   return (
     <div>
@@ -269,7 +284,7 @@ const CourseDetails = ({
                 </h4>
               </div>
               <div className="flex items-center">
-                {userData && userData?.user && userData?.user?.courses?.find((item: any) => item._id === data._id) ? (
+                {isPurchased ? (
                   <Link
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     href={`/course-access/${data._id}`}
@@ -281,7 +296,7 @@ const CourseDetails = ({
                     className={`${styles.button} !w-[180px] my-3 font-Poppins cursor-pointer !bg-[crimson]`}
                     onClick={handleOrder}
                   >
-                    {data.price === 0 ? "Enroll for Free" : "Buy Now " + data.price + "₹"}
+                    {isPurchased ? "Enroll for Free" : "Buy Now " + data.price + "₹"}
                   </div>
                 )}
               </div>
@@ -305,9 +320,9 @@ const CourseDetails = ({
       <>
         {open && (
           <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
-            <div className="w-[500px] min-h-[500px] bg-white rounded-xl shadow p-3">
-              <CheckOutForm courseId={data._id} amount={data.price} userId={user._id} setOpen={setOpen}/>
-            </div>
+
+              <CheckOutForm courseId={data._id} amount={data.price} userId={user._id} setOpen={setOpen} onPaymentSuccess={onPaymentSuccesshalf}/>
+
           </div>
         )}
       </>

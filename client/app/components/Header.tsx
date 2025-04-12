@@ -176,7 +176,7 @@ const Header: FC<Props> = ({ activeItem }) => {
                 <button
                   className=" 800px:block cursor-pointer text-white bg-gradient py-1 text-xs rounded-3xl px-3 md:py-2 md:px-6 md:text-base"
                   onClick={() => router.push("/login")}
-                >Sign Up</button>
+                >Login</button>
               )}
               <br />
               <br />
