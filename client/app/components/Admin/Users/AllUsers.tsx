@@ -129,7 +129,7 @@ const AllCourses: FC<Props> = ({ isTeam }) => {
           name: item.name,
           email: item.email,
           role: item.role,
-          courses: item.courses.length,
+          courses: item.courses?.length || 0,
           created_at: format(item.createdAt),
         });
       });
