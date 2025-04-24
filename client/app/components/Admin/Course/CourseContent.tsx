@@ -153,10 +153,10 @@ const CourseContent: FC<Props> = ({
                         } font-Poppins cursor-pointer dark:text-white text-black bg-transparent outline-none`}
                         value={item.videoSection}
                         onChange={(e) => {
-                          const updatedData = [...courseContentData];
-                          updatedData[index].videoSection = e.target.value;
+                         const updatedData = courseContentData.map((item: any, idx: number) =>
+                            idx === index ? { ...item, videoSection: e.target.value } : item
+                          );
                           setCourseContentData(updatedData);
-                        }}
                       />
                       <BsPencil className="cursor-pointer dark:text-white text-black" />
                     </div>
@@ -215,8 +215,9 @@ const CourseContent: FC<Props> = ({
                         className={`${styles.input}`}
                         value={item.title}
                         onChange={(e) => {
-                          const updatedData = [...courseContentData];
-                          updatedData[index].title = e.target.value;
+                          const updatedData = courseContentData.map((item: any, idx: number) =>
+                            idx === index ? { ...item, title: e.target.value } : item
+                          );
                           setCourseContentData(updatedData);
                         }}
                       />
