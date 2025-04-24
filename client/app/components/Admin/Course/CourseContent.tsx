@@ -156,7 +156,8 @@ const CourseContent: FC<Props> = ({
                          const updatedData = courseContentData.map((item: any, idx: number) =>
                             idx === index ? { ...item, videoSection: e.target.value } : item
                           );
-                          setCourseContentData(updatedData);
+                          setCourseContentData(updatedData); 
+                        }}
                       />
                       <BsPencil className="cursor-pointer dark:text-white text-black" />
                     </div>
