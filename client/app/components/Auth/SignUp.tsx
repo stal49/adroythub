@@ -27,20 +27,7 @@ const Signup: FC = () => {
   const [register, { data, error, isSuccess }] = useRegisterMutation();
   const router = useRouter();
 
-  
 
-  useEffect(() => {
-    if (isSuccess) {
-      const message = data?.message || "Registration successful";
-      toast.success(message);
-      router.push("/verification");
-    }
-    if (error) {
-      if ("data" in error) {
-        toast.error("Registration Failed");
-      }
-    }
-  }, [isSuccess, error, data, router]);
 
   const formik = useFormik({
     initialValues: { name: "", email: "", password: "", mobile: "", institute: "", code: "" },
@@ -51,6 +38,33 @@ const Signup: FC = () => {
   });
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("signup_data");
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      formik.setValues({ ...formik.values, ...parsedData, password: "" });
+    }
+  }, []);
+
+  useEffect(() => {
+    const { password, ...rest } = values;
+    localStorage.setItem("signup_data", JSON.stringify(rest));
+  }, [values]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      const message = data?.message || "Registration successful";
+      toast.success(message);
+      localStorage.removeItem("signup_data");
+      router.push("/verification");
+    }
+    if (error) {
+      if ("data" in error) {
+        toast.error("Registration Failed");
+      }
+    }
+  }, [isSuccess, error, data, router]);
 
   return (
     <div className="w-full">

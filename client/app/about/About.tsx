@@ -6,8 +6,6 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 
 
-
-
 const testimonials = [
   {
     id: '1',

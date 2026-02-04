@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"; 
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store"; // Import RootState for accessing Redux state
 import { userLoggedIn } from "../auth/authSlice";
 
@@ -36,7 +36,10 @@ export const apiSlice = createApi({
         try {
           const result = await queryFulfilled;
         } catch (error: any) {
-          console.error("Error loading user:", error);
+          // Only log errors that are not 401 (expected for unauthenticated users)
+          if (error?.error?.status !== 401) {
+            console.error("Error loading user:", error);
+          }
         }
       },
     }),

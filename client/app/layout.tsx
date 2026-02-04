@@ -14,7 +14,8 @@ const ENDPOINT = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
 const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 import { ToastContainer } from 'react-toastify'
 import Script from "next/script";
-    
+import { useSelector } from "react-redux";
+
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -39,11 +40,11 @@ export default function RootLayout({
         className={`${poppins.variable} ${josefin.variable} !bg-white bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
       >
         <Providers>
-        <ToastContainer position='top-center' />
+          <ToastContainer position='top-center' />
           <SessionProvider>
             <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
               <Custom>
-              <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="beforeInteractive" />
+                <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
                 <div>{children}</div>
               </Custom>
               <Toaster position="top-center" reverseOrder={false} />
@@ -56,11 +57,18 @@ export default function RootLayout({
 }
 
 const Custom: FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isLoading } = useLoadUserQuery({});
+  const { token } = useSelector((state: any) => state.auth);
+  const { isLoading } = useLoadUserQuery({}, { skip: !token });
+  const [isMounted, setIsMounted] = React.useState(false);
 
   useEffect(() => {
-    socketId.on("connection", () => {});
+    setIsMounted(true);
+    socketId.on("connection", () => { });
   }, []);
+
+  if (!isMounted) {
+    return <div>{children}</div>;
+  }
 
   return <div>{isLoading ? <Loader /> : <div>{children} </div>}</div>;
 };
