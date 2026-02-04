@@ -1,3 +1,6 @@
 client/.next
 client/node_modules
 server/node_modules
+.env
+bun.lock
+node_modules

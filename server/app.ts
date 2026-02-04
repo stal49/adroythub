@@ -23,7 +23,10 @@ app.use(cookieParser());
 // cors => cross origin resource sharing
 app.use(
   cors({
-    origin: [  "https://adroythub.com", "*"],
+    origin: [
+      "https://adroythub.com",
+      "http://localhost:3000",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,12 +34,13 @@ app.use(
 );
 
 
+
 // api requests limit
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000,
-	max: 100, 
-	standardHeaders: 'draft-7', 
-	legacyHeaders: false, 
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: 'draft-7',
+  legacyHeaders: false,
 })
 
 // routes
@@ -48,7 +52,7 @@ app.use(
   notificationRouter,
   analyticsRouter,
   layoutRouter,
-  internshipRouter , 
+  internshipRouter,
   RegisterationRouter,
 );
 
