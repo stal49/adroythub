@@ -68,6 +68,14 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
       return;
     }
 
+    // Check if user already owns this course
+    if (user?.courses?.includes(courseId)) {
+      console.warn("User already owns this course:", courseId);
+      toast.warning("⚠️ You have already purchased this course!");
+      setOpen(false);
+      return;
+    }
+
     const isRazorpayLoaded = await loadRazorpay();
     if (!isRazorpayLoaded) {
       toast.error("Failed to load Razorpay. Please try again.");
@@ -91,17 +99,41 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
         order_id: order.id,
         handler: async (response: any) => {
           try {
+            console.log("=== CLIENT: PAYMENT SUCCESSFUL FROM RAZORPAY ===");
+            console.log("Razorpay response:", response);
+
             const serverUri = process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:8000/api";
+            console.log("Creating order on server:", serverUri);
+
             const response2 = await axios.post(
               `${serverUri}/create-order`,
               {
-                courseId: courseId
+                courseId: courseId,
+                amount: amount,
+                currency: "INR"
               },
               { headers: { Authorization: `Bearer ${token}` } }
             );
-            if (!response2.data.success) return
+
+            console.log("Create order response:", response2.data);
+
+            if (!response2.data.success) {
+              console.error("Order creation failed:", response2.data);
+              toast.error(response2.data.message || "Failed to create order");
+              return;
+            }
             dispatch(updateUserCourses(courseId));
             const socketUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
+
+            console.log("=== CLIENT: VERIFY PAYMENT REQUEST ===");
+            console.log("Socket URI:", socketUri);
+            console.log("Payment response from Razorpay:", response);
+            console.log("Verification payload:", {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            });
+
             const verification = await axios.post(
               `${socketUri}/adroyt/verify-payment`,
               {
@@ -112,12 +144,29 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
               { headers: { Authorization: `Bearer ${token}` } }
             );
 
+            console.log("Verification response:", verification.data);
             toast.success(verification.data.message);
             onPaymentSuccess()
             setOpen(false);
             console.log('hello', user, courseId)
           } catch (error: any) {
-            toast.error(`Payment verification failed: ${error.response?.data?.error || error.message}`);
+            console.error("=== CLIENT: PAYMENT VERIFICATION ERROR ===");
+            console.error("Error object:", error);
+            console.error("Error response:", error.response);
+            console.error("Error response data:", error.response?.data);
+            console.error("Error message:", error.message);
+
+            // Check if it's an "already purchased" error
+            if (error.response?.status === 400 && error.response?.data?.message?.includes("already purchased")) {
+              console.warn("Course already purchased by user");
+              toast.warning("⚠️ You have already purchased this course!");
+              setOpen(false); // Close the payment modal
+            } else if (error.response?.data?.message) {
+              // Show the actual error message from the server
+              toast.error(error.response.data.message);
+            } else {
+              toast.error(`Error: ${error.response?.data?.error || error.message}`);
+            }
           }
         },
         prefill: {
