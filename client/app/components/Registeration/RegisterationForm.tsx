@@ -12,9 +12,9 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
     mobileNumber: "",
     College: "",
     CurrentYear: "",
-    Address : "",
-    CourseInterested : "",
-    
+    Address: "",
+    CourseInterested: "",
+
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://adroythub.onrender.com/api/v1/registeration", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/registeration`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

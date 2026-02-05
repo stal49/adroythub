@@ -1,5 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
-import axios from "axios";
+import React, { FC } from "react";
 
 type Props = {
   videoUrl: string;
@@ -7,24 +6,13 @@ type Props = {
 };
 
 const CoursePlayer: FC<Props> = ({ videoUrl }) => {
-  const [videoData, setVideoData] = useState({
-    otp: "",
-    playbackInfo: "",
-  });
+  // Note: This component uses Google Drive for video playback
+  // VdoCipher integration has been removed as it's not being used
 
-  useEffect(() => {
-    axios
-      .post("https://adroythub.onrender.com/api/v1/getVdoCipherOTP", {
-        videoId: videoUrl,
-      })
-      .then((res) => {
-        setVideoData(res.data);
-      });
-  }, [videoUrl]);
 
   return (
-    <div style={{position:"relative",paddingTop:"56.25%",overflow:"hidden"}}>
-      { (
+    <div style={{ position: "relative", paddingTop: "56.25%", overflow: "hidden" }}>
+      {(
         <iframe
           src={`https://drive.google.com/file/d/${videoUrl}/preview`}
           style={{
