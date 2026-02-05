@@ -4,3 +4,4 @@ server/node_modules
 .env
 bun.lock
 node_modules
+server

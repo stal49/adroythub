@@ -36,6 +36,7 @@ const CourseDetails = ({
   onPaymentSuccess
 }: Props) => {
   const { data: userData, refetch } = useLoadUserQuery(undefined, {});
+  const [createOrder] = useCreateOrderMutation();
   const [user, setUser] = useState<any>();
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -44,7 +45,7 @@ const CourseDetails = ({
     console.log('userData?.user', userData?.user)
     console.log('data._id', data._id)
     setUser(userData?.user);
-    if(userData?.user){
+    if (userData?.user) {
       const isPurchased = userData?.user?.courses?.includes(data._id);
       console.log('user?.courses', userData?.user?.courses)
       console.log('isPurchasedisPurchased', isPurchased)
@@ -56,7 +57,7 @@ const CourseDetails = ({
   const discountPercentengePrice = discountPercentenge.toFixed(0);
 
   const isPurchased =
-  userData?.user && userData?.user?.courses?.find((item: any) => item === data._id);
+    userData?.user && userData?.user?.courses?.find((item: any) => item === data._id);
 
   const handleOrder = (e: any) => {
     if (userData) {
@@ -76,24 +77,17 @@ const CourseDetails = ({
   const addFreeCourseToUser = async (user: any, course: any) => {
     try {
       // Make a request to add the free course to the user's courses (Backend call)
-      const response = await fetch('/api/v1/create-order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          courseId: course._id,
-          payment_info: {},  // No payment info for free course
-          isFree: true, // Mark the course as free
-        }),
+      const response: any = await createOrder({
+        courseId: course._id,
+        payment_info: {},  // No payment info for free course
       });
 
-      if (response.ok) {
+      if (response.data?.success) {
         refetch(); // Refresh user data to include the newly added course
         toast.success("Free course added to your account!");
       } else {
-        toast.error("Error adding free course.");
-        console.error("Error adding free course");
+        toast.error(response.error?.data?.message || "Error adding free course.");
+        console.error("Error adding free course", response.error);
       }
     } catch (error) {
       toast.error("Error adding free course.");
@@ -101,11 +95,11 @@ const CourseDetails = ({
     }
   };
 
-    const onPaymentSuccesshalf = async () => {
-      onPaymentSuccess()
-      
-      await refetch()
-    };
+  const onPaymentSuccesshalf = async () => {
+    onPaymentSuccess()
+
+    await refetch()
+  };
 
   return (
     <div>
@@ -321,7 +315,7 @@ const CourseDetails = ({
         {open && (
           <div className="w-full h-screen bg-[#00000036] fixed top-0 left-0 z-50 flex items-center justify-center">
 
-              <CheckOutForm courseId={data._id} amount={data.price} userId={user._id} setOpen={setOpen} onPaymentSuccess={onPaymentSuccesshalf}/>
+            <CheckOutForm courseId={data._id} amount={data.price} userId={user._id} setOpen={setOpen} onPaymentSuccess={onPaymentSuccesshalf} />
 
           </div>
         )}

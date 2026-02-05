@@ -5,7 +5,7 @@ import { userLoggedIn } from "../auth/authSlice";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_SERVER_URI,
+    baseUrl: process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:8000/api",
     credentials: "include", // Ensure cookies are included
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;

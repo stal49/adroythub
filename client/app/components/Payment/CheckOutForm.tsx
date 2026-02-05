@@ -15,17 +15,18 @@ interface CheckOutFormProps {
   onPaymentSuccess: () => void;
 }
 
-const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, setOpen,onPaymentSuccess }) => {
+const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, setOpen, onPaymentSuccess }) => {
 
   const dispatch = useDispatch()
   const { token } = useSelector((state: RootState) => state.auth);
-   const {user} = useSelector((state:any) => state.auth);
+  const { user } = useSelector((state: any) => state.auth);
   const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
   const [paymentType, setPaymentType] = useState<"razorpay" | "phonepe" | null>(null);
 
   const checkServiceStatus = async () => {
     try {
-      const { data } = await axios.get(`${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}check`);
+      const serverUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
+      const { data } = await axios.get(`${serverUri}/check`);
       if (data.message) {
         toast.success("Welcome! We are ready to go.");
       } else {
@@ -41,7 +42,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
     checkServiceStatus();
   }, []);
 
-  
+
 
   const handlePaymentTypeSelection = (type: "razorpay" | "phonepe") => {
     if (type === "phonepe") {
@@ -60,28 +61,29 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
       document.body.appendChild(script);
     });
   };
-  
+
   const handlePayment = async () => {
     if (!token) {
       toast.warn("Please login first.");
       return;
     }
-  
+
     const isRazorpayLoaded = await loadRazorpay();
     if (!isRazorpayLoaded) {
       toast.error("Failed to load Razorpay. Please try again.");
       return;
     }
-  
+
     try {
+      const serverUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
       const { data: order } = await axios.post(
-        `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}adroyt/create-order`,
-        { amount: amount*100, currency: "INR", courseId: courseId, path: `/courses/${courseId}` },
+        `${serverUri}/adroyt/create-order`,
+        { amount: Math.round(amount * 100), currency: "INR", courseId: courseId, path: `/courses/${courseId}` },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-  
+
       const options = {
-        key: razorpayKey,
+        key: order.key || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_RwCeSpA3JNX9E0",
         amount: order.amount,
         currency: order.currency,
         name: "Adsium Innovation",
@@ -89,17 +91,19 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
         order_id: order.id,
         handler: async (response: any) => {
           try {
+            const serverUri = process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:8000/api";
             const response2 = await axios.post(
-              `${process.env.NEXT_PUBLIC_SERVER_URI}/create-order`,
+              `${serverUri}/create-order`,
               {
                 courseId: courseId
               },
               { headers: { Authorization: `Bearer ${token}` } }
             );
-            if(!response2.data.success) return
+            if (!response2.data.success) return
             dispatch(updateUserCourses(courseId));
+            const socketUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
             const verification = await axios.post(
-              `${process.env.NEXT_PUBLIC_SOCKET_SERVER_URI}adroyt/verify-payment`,
+              `${socketUri}/adroyt/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -107,7 +111,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
               },
               { headers: { Authorization: `Bearer ${token}` } }
             );
-  
+
             toast.success(verification.data.message);
             onPaymentSuccess()
             setOpen(false);
@@ -123,19 +127,25 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
           color: "#3399cc",
         },
       };
-  
+
       const rzp = new (window as any).Razorpay(options);
       rzp.open();
     } catch (error: any) {
-      toast.error(`Error: ${error.response?.data?.error || error.message}`);
-      console.log(error.message);
+      console.error("DEBUG - Order creation failed:", error);
+      const errorMsg = error.response?.data?.error || error.message || "Unknown error";
+      const errorDetails = error.response?.data?.details || "";
+      toast.error(`Order Error: ${errorMsg} ${errorDetails}`);
+
+      if (error.response?.data) {
+        console.log("DEBUG - Server error response data:", error.response.data);
+      }
     }
   };
-  
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
       <div className="relative bg-white rounded-2xl shadow-xl w-full max-w-md overflow-y-auto max-h-full px-6 py-12">
-        
+
         {/* Close icon */}
         <button
           onClick={() => setOpen(false)}
@@ -181,7 +191,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
         </div>
       </div>
     </div>
-  );  
+  );
 };
 
 export default CheckOutForm;
