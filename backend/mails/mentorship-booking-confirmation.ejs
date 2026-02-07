@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Session Confirmed</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #7C3AED;
+        }
+        .header h1 {
+            color: #7C3AED;
+            margin: 0;
+            font-size: 28px;
+        }
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .session-details {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #7C3AED;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+        }
+        .amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7C3AED;
+        }
+        .free-session {
+            background: #e8f5e8;
+            color: #2d5a2d;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .next-steps {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 14px;
+        }
+        .contact-info {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="success-icon">🎉</div>
+            <h1>Mentorship Session Confirmed!</h1>
+        </div>
+
+        <p>Hello <strong><%= user.name %></strong>,</p>
+        
+        <p>Great news! Your mentorship session has been successfully booked. We're excited to help you on your journey!</p>
+
+        <div class="session-details">
+            <h3 style="margin-top: 0; color: #7C3AED;">Session Details</h3>
+            <div class="detail-row">
+                <span class="detail-label">Category:</span>
+                <span class="detail-value"><%= session.category %></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value"><%= session.date %></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Time:</span>
+                <span class="detail-value"><%= session.timeSlot %></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Duration:</span>
+                <span class="detail-value">60 minutes</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Amount:</span>
+                <span class="detail-value">
+                    <% if (session.amount === 0) { %>
+                        <span class="free-session">FREE SESSION</span>
+                    <% } else { %>
+                        <span class="amount">₹<%= session.amount %></span>
+                    <% } %>
+                </span>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h4 style="margin-top: 0; color: #856404;">What's Next?</h4>
+            <ul>
+                <li>You'll receive a meet link 24 hours before your session</li>
+                <li>Please join the session 5 minutes early</li>
+                <li>Have your questions ready for maximum benefit</li>
+                <li>Ensure you have a stable internet connection</li>
+            </ul>
+        </div>
+
+        <div class="contact-info">
+            <h4 style="margin-top: 0; color: #7C3AED;">Need Help?</h4>
+            <p>If you have any questions or need to reschedule, please contact us:</p>
+            <p><strong>Email:</strong> support@calmchase.com</p>
+            <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
+        </div>
+
+        <p>We look forward to seeing you in your session!</p>
+        
+        <p>Best regards,<br>
+        <strong>The CalmChase Team</strong></p>
+
+        <div class="footer">
+            <p>This is an automated email. Please do not reply to this email.</p>
+            <p>&copy; 2025 CalmChase. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -31,7 +31,7 @@ const CourseDetailsPage = ({ id }: Props) => {
 
   const onPaymentSuccess = async () => {
     toast.success("Payment Successful!");
-    
+
     await refetchUserData(); // Refresh user data (already in your code)
     await refetchCourseDetails(); // Refresh course details after payment
   };
@@ -57,6 +57,10 @@ const CourseDetailsPage = ({ id }: Props) => {
     <>
       {isLoading ? (
         <Loader />
+      ) : !data || !data.course ? (
+        <div className="flex items-center justify-center min-h-screen">
+          <p className="text-xl text-red-500">Course not found or failed to load</p>
+        </div>
       ) : (
         <div>
           <Heading
@@ -67,7 +71,7 @@ const CourseDetailsPage = ({ id }: Props) => {
             keywords={data?.course?.tags}
           />
           <Header
-            
+
             open={open}
             setOpen={setOpen}
             activeItem={1}

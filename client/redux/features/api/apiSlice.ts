@@ -38,7 +38,12 @@ export const apiSlice = createApi({
         } catch (error: any) {
           // Only log errors that are not 401 (expected for unauthenticated users)
           if (error?.error?.status !== 401) {
-            console.error("Error loading user:", error);
+            console.error("Error loading user:", {
+              status: error?.error?.status,
+              data: error?.error?.data,
+              message: error?.error?.message || error?.message,
+              fullError: error
+            });
           }
         }
       },

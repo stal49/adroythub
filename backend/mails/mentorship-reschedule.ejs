@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Session Rescheduled</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .email-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ffc107;
+        }
+        .header h1 {
+            color: #ffc107;
+            margin: 0;
+            font-size: 28px;
+        }
+        .reschedule-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .session-details {
+            background: #fff8e1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+        }
+        .old-session {
+            background: #f8d7da;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        .new-session {
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+        }
+        .reason-box {
+            background: #d1ecf1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #17a2b8;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 14px;
+        }
+        .contact-info {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <div class="reschedule-icon">🔄</div>
+            <h1>Session Rescheduled</h1>
+        </div>
+
+        <p>Hello <strong><%= user.name %></strong>,</p>
+        
+        <p>Your mentorship session has been rescheduled. Please find the updated details below.</p>
+
+        <div class="old-session">
+            <h4 style="margin-top: 0; color: #721c24;">Previous Session</h4>
+            <div class="detail-row">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value"><%= session.oldDate %></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Time:</span>
+                <span class="detail-value"><%= session.oldTimeSlot %></span>
+            </div>
+        </div>
+
+        <div class="new-session">
+            <h4 style="margin-top: 0; color: #155724;">New Session</h4>
+            <div class="detail-row">
+                <span class="detail-label">Date:</span>
+                <span class="detail-value"><%= session.newDate %></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Time:</span>
+                <span class="detail-value"><%= session.newTimeSlot %></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Category:</span>
+                <span class="detail-value"><%= session.category %></span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Duration:</span>
+                <span class="detail-value">60 minutes</span>
+            </div>
+        </div>
+
+        <div class="reason-box">
+            <h4 style="margin-top: 0; color: #0c5460;">Reschedule Reason</h4>
+            <p><%= session.reason %></p>
+        </div>
+
+        <div class="session-details">
+            <h4 style="margin-top: 0; color: #856404;">Important Notes</h4>
+            <ul>
+                <li>You'll receive a new meet link 24 hours before your rescheduled session</li>
+                <li>Please update your calendar with the new date and time</li>
+                <li>If you need to make any changes, please contact us at least 24 hours in advance</li>
+            </ul>
+        </div>
+
+        <div class="contact-info">
+            <h4 style="margin-top: 0; color: #7C3AED;">Need Help?</h4>
+            <p>If you have any questions or need to make further changes:</p>
+            <p><strong>Email:</strong> support@calmchase.com</p>
+            <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
+        </div>
+
+        <p>We apologize for any inconvenience and look forward to seeing you in your rescheduled session!</p>
+        
+        <p>Best regards,<br>
+        <strong>The CalmChase Team</strong></p>
+
+        <div class="footer">
+            <p>This is an automated email. Please do not reply to this email.</p>
+            <p>&copy; 2025 CalmChase. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
