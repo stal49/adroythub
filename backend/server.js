@@ -15,6 +15,7 @@ const notificationRouter = require("./routes/notification.route");
 const layoutRouter = require("./routes/layout.route");
 const adroytPaymentRoutes = require("./routes/adroytPaymentRoutes");
 const { initSocketServer } = require("./socketServer");
+const { connectToMainMongoDatabase } = require("./config/database");
 
 const app = express();
 
@@ -130,10 +131,18 @@ const server = http.createServer(app);
 // Initialize Socket.IO server
 initSocketServer(server);
 
-server.listen(PORT, () => {
-    console.log(`🚀 Adroythub backend server is running on port ${PORT}`);
-    console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
-    console.log(`🔌 Socket.IO server initialized`);
-});
+// Initialize MongoDB Connection at startup
+connectToMainMongoDatabase()
+    .then(() => {
+        server.listen(PORT, () => {
+            console.log(`🚀 Adroythub backend server is running on port ${PORT}`);
+            console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
+            console.log(`🔌 Socket.IO server initialized`);
+        });
+    })
+    .catch((err) => {
+        console.error("❌ Failed to connect to MongoDB at startup:", err);
+        process.exit(1);
+    });
 
 module.exports = app;

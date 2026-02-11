@@ -3,10 +3,10 @@ const dotenv = require("dotenv");
 
 dotenv.config(); // Load environment variables
 
-const mongouri = process.env.MAIN_MONGO_URL || process.env.MONGO_URL;
-const mainmongouri = process.env.MAIN_MONGO_URL;
-const mongouri4 = process.env.MONGO_URL_HACKATHON;
-const mongourilatlng = process.env.MONGO_URL_LATLNG;
+const mongouri = process.env.MAIN_MONGO_URL || process.env.MONGO_URL || process.env.DB_URL;
+const mainmongouri = process.env.MAIN_MONGO_URL || process.env.DB_URL;
+const mongouri4 = process.env.MONGO_URL_HACKATHON || process.env.DB_URL;
+const mongourilatlng = process.env.MONGO_URL_LATLNG || process.env.DB_URL;
 const mongoMainuri = process.env.DB_URL;
 
 let client;

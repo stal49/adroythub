@@ -13,6 +13,7 @@ const bcrypt = require("bcryptjs");
 const cloudinary = require("cloudinary");
 const { getAllUsersService, updateUserRoleService, getUserByIdService } = require("../services/userService");
 const { sendToken } = require("../utils/jwt");
+const { disconnectUser } = require("../socketServer");
 
 // Register user
 exports.registrationUser = CatchAsyncError(async (req, res, next) => {
@@ -177,22 +178,38 @@ exports.loginUser = CatchAsyncError(async (req, res, next) => {
 exports.logoutUser = CatchAsyncError(async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return next(new ErrorHandler("Unauthorized", 401));
+    let userId = "";
+
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      const token = authHeader.split(" ")[1];
+      try {
+        // Decode token even if expired to get the userId for cleanup
+        const decoded = jwt.verify(token, process.env.SECRET_KEY, { ignoreExpiration: true });
+        userId = decoded.id;
+      } catch (err) {
+        console.warn("Logout: Could not decode token:", err.message);
+      }
     }
 
-    const token = authHeader.split(" ")[1];
-    const decoded = jwt.verify(token, process.env.SECRET_KEY);
-
-    // Invalidate token by deleting user session from Redis
-    redis.del(decoded.id);
+    if (userId) {
+      // Invalidate token by deleting user session from Redis
+      await redis.del(userId);
+      // Disconnect user from Socket.IO
+      disconnectUser(userId);
+      console.log(`✅ User ${userId} logged out and session cleared`);
+    }
 
     res.status(200).json({
       success: true,
       message: "Logged out successfully",
     });
   } catch (error) {
-    return next(new ErrorHandler(error.message, 400));
+    console.error("Logout Error:", error);
+    // Still return success to allow frontend cleanup
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully (with errors)",
+    });
   }
 });
 

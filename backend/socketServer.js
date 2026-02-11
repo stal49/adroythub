@@ -122,9 +122,24 @@ const emitToUser = (userId, message) => {
   }
 };
 
+const disconnectUser = (userId) => {
+  if (!ioInstance) return;
+  const socketId = userSocketMap.get(userId);
+  if (socketId) {
+    const socket = ioInstance.sockets.sockets.get(socketId);
+    if (socket) {
+      socket.disconnect(true);
+      console.log(`🔌 Manually disconnected user ${userId} via logout`);
+    }
+    userSocketMap.delete(userId);
+    socketUserMap.delete(socketId);
+  }
+};
+
 module.exports = {
   initSocketServer,
   emitToAll,
   emitToRoom,
   emitToUser,
+  disconnectUser,
 };
