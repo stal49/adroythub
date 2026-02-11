@@ -19,7 +19,7 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
           src={item.thumbnail.url}
           width={500}
           height={300}
-          objectFit="contain"
+          style={{ objectFit: "contain" }}
           className="rounded w-full"
           alt=""
         />
@@ -30,9 +30,8 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
         <div className="w-full flex items-center justify-between pt-2">
           <Ratings rating={item.ratings} />
           <h5
-            className={`text-black dark:text-[#fff] ${
-              isProfile && "hidden 800px:inline"
-            }`}
+            className={`text-black dark:text-[#fff] ${isProfile && "hidden 800px:inline"
+              }`}
           >
             {item.purchased} Students
           </h5>

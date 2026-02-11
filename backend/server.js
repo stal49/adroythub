@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const rateLimit = require("express-rate-limit");
+const http = require("http");
 
 // Import routes
 const userRouter = require("./routes/user.route");
@@ -13,6 +14,7 @@ const orderRouter = require("./routes/order.route");
 const notificationRouter = require("./routes/notification.route");
 const layoutRouter = require("./routes/layout.route");
 const adroytPaymentRoutes = require("./routes/adroytPaymentRoutes");
+const { initSocketServer } = require("./socketServer");
 
 const app = express();
 
@@ -121,11 +123,17 @@ app.use((req, res) => {
     });
 });
 
-// Start server
+// Start server with Socket.IO
 const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
+const server = http.createServer(app);
+
+// Initialize Socket.IO server
+initSocketServer(server);
+
+server.listen(PORT, () => {
     console.log(`🚀 Adroythub backend server is running on port ${PORT}`);
     console.log(`📍 Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log(`🔌 Socket.IO server initialized`);
 });
 
 module.exports = app;

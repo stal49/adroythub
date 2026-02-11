@@ -7,8 +7,8 @@ import { styles } from "@/app/styles/style";
 import { useSelector } from "react-redux";
 
 interface GenerateCertificateProps {
-  id : any;
-  courseName: string | "Usercourse" ; 
+  id: any;
+  courseName: string | "Usercourse";
 }
 
 const GenerateCertificate: React.FC<GenerateCertificateProps> = ({ courseName }) => {
@@ -80,8 +80,8 @@ const GenerateCertificate: React.FC<GenerateCertificateProps> = ({ courseName })
           <Image
             src="/assests/certbg.png"
             alt="Certificate Background"
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center p-8 mb-[90px]">
             <h1 className="text-[30px] font-serif text-blue-500">{courseName}</h1>
@@ -98,9 +98,9 @@ const GenerateCertificate: React.FC<GenerateCertificateProps> = ({ courseName })
 
 
       <div>
-      <h1 className={`${styles.title} text-gradient2 800px:text-[40px]`}>
-      Congratulations on completing the course! <br />Your dedication and hard work have paid off-well done!
-                     </h1>
+        <h1 className={`${styles.title} text-gradient2 800px:text-[40px]`}>
+          Congratulations on completing the course! <br />Your dedication and hard work have paid off-well done!
+        </h1>
       </div>
       <div className="flex justify-center p-4 pb-7">
         <button
