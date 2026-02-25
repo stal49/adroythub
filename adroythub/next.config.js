@@ -18,7 +18,10 @@ const nextConfig = {
   },
   experimental: {
     // Remove invalid keys reactRoot and suppressHydrationWarning
-        
+
+  },
+  turbopack: {
+    root: __dirname,
   },
 }
 
