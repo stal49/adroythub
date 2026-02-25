@@ -6,28 +6,32 @@ import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
 
 type Props = {
-    params: any;
+    params: Promise<{ id: string }>;
 }
 
 const Page = ({ params }: Props) => {
-    const id = params.id;
+    const { id } = React.use(params);
     const { isLoading, error, data, refetch } = useLoadUserQuery(undefined, {});
 
     useEffect(() => {
-        if (data) {
-            const isPurchased = data.user.courses.find((item: any) => item._id === id);
-            const isFreeCourse = data.user.courses.find((item: any) => item._id === id && item.price === 0);
-            
-            // Allow access if course is purchased or free
-            if (!isPurchased && !isFreeCourse) {
-                redirect("/");  // Redirect if not purchased and not free
+        if (data?.user) {
+            const courses: any[] = data.user.courses || [];
+
+            const isPurchased = courses.some((item: any) => {
+                // Format 1: plain ObjectId or string (from orderController)
+                if (typeof item === "string") return item === id;
+                // Format 2: { _id: ... } (from activateUser with promo code)
+                if (item._id) return item._id.toString() === id || item._id === id;
+                // Format 3: { courseId: ... } (legacy)
+                if (item.courseId) return item.courseId.toString() === id || item.courseId === id;
+                return false;
+            });
+
+            if (!isPurchased) {
+                redirect("/");
             }
         }
-        
-        if (error) {
-            redirect("/");  // Handle errors by redirecting
-        }
-    }, [data, error, id]);
+    }, [data, id]);
 
     return (
         <>

@@ -115,7 +115,7 @@ const [isFormVisible, setFormVisible] = useState(false);
 
 
             <div className="w-[95%] 800px:w-[85%] m-auto flex flex-col 800px:flex-row justify-between items-center 800px:items-start">
-              <p className="text-[16px] 800px:text-[20px] font-Poppins m-5 800px:m-20 pt-5 800px:pt-10">
+              <div className="text-[16px] 800px:text-[20px] font-Poppins m-5 800px:m-20 pt-5 800px:pt-10">
                 <h1 className="text-[24px] 800px:text-[45px] font-bold">
                   <span className="text-gradient">Empower Your Future with Practical Experience</span>
                 </h1>
@@ -129,7 +129,7 @@ const [isFormVisible, setFormVisible] = useState(false);
                 <p className="text-[16px] 800px:text-[20px] font-Poppins">
                   This internship is open to students who have successfully completed any of our offline courses at Adroythub. If you&apos;ve taken courses in IT, programming languages, business communication, or marketing, this program is your next step towards a successful career.
                 </p>
-              </p>
+              </div>
             </div>
 
 

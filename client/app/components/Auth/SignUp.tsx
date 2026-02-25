@@ -24,7 +24,7 @@ const schema = Yup.object().shape({
 
 const Signup: FC = () => {
   const [show, setShow] = useState(false);
-  const [register, { data, error, isSuccess }] = useRegisterMutation();
+  const [register, { data, error, isSuccess, isLoading }] = useRegisterMutation();
   const router = useRouter();
 
 
@@ -169,7 +169,23 @@ const Signup: FC = () => {
           />
         </div>
         <div className="w-full mt-5">
-          <input type="submit" value="Sign Up" className={`${styles.button}`} />
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`${styles.button} flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed`}
+          >
+            {isLoading ? (
+              <>
+                <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                </svg>
+                Signing up...
+              </>
+            ) : (
+              "Sign Up"
+            )}
+          </button>
         </div>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">
