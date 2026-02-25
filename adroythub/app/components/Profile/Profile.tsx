@@ -21,7 +21,7 @@ const Profile: FC<Props> = ({ user }) => {
   const [courses, setCourses] = useState([]);
   const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
 
-  const {} = useLogOutQuery(undefined, {
+  const { } = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
   });
 
@@ -29,9 +29,9 @@ const Profile: FC<Props> = ({ user }) => {
 
   const logOutHandler = async () => {
     setLogout(true);
-    
-    await signOut({ callbackUrl: "https://www.adroythub.com"  });
-    
+
+    await signOut({ callbackUrl: process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "/" });
+
   };
 
   if (typeof window !== "undefined") {
@@ -58,9 +58,8 @@ const Profile: FC<Props> = ({ user }) => {
   return (
     <div className="w-[85%] flex mx-auto">
       <div
-        className={`w-[60px] 800px:w-[310px] h-[450px] dark:bg-slate-900 bg-opacity-90 border bg-white dark:border-[#ffffff1d] border-[#00000014] rounded-[5px] shadow-sm dark:shadow-sm mt-[80px] mb-[80px] sticky ${
-          scroll ? "top-[120px]" : "top-[30px]"
-        } left-[30px]`}
+        className={`w-[60px] 800px:w-[310px] h-[450px] dark:bg-slate-900 bg-opacity-90 border bg-white dark:border-[#ffffff1d] border-[#00000014] rounded-[5px] shadow-sm dark:shadow-sm mt-[80px] mb-[80px] sticky ${scroll ? "top-[120px]" : "top-[30px]"
+          } left-[30px]`}
       >
         <SideBarProfile
           user={user}

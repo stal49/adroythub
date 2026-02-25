@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { signOut } from "next-auth/react";
 
 interface itemProps {
   title: string;
@@ -66,17 +67,17 @@ const AdminSidebar = () => {
     return null;
   }
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     setlogout(true);
+    await signOut({ callbackUrl: process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "/" });
   };
 
   return (
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          background: `${
-            theme === "dark" ? "#111C43 !important" : "#fff !important"
-          }`,
+          background: `${theme === "dark" ? "#111C43 !important" : "#fff !important"
+            }`,
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",

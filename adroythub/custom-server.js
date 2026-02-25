@@ -7,10 +7,8 @@
  * - Socket.IO runs on the same HTTP server (port 3000)
  */
 
-// Load .env.local first (PORT=3000 and frontend vars take priority)
-require("dotenv").config({ path: __dirname + "/.env.local", override: false });
-// Then load api/.env for any backend-only vars not already set
-require("dotenv").config({ path: __dirname + "/api/.env", override: false });
+// Single env file — contains all frontend + backend variables
+require("dotenv").config({ path: __dirname + "/.env" });
 
 const { createServer } = require("http");
 const { parse } = require("url");
@@ -34,9 +32,10 @@ nextApp
                 const parsedUrl = parse(req.url, true);
                 const { pathname } = parsedUrl;
 
-                // Route API and payment requests to Express
+                // Route backend API and payment requests to Express
+                // IMPORTANT: /api/auth/* must go to Next.js (NextAuth), not Express
                 if (
-                    pathname.startsWith("/api") ||
+                    (pathname.startsWith("/api") && !pathname.startsWith("/api/auth")) ||
                     pathname.startsWith("/adroyt") ||
                     pathname === "/check"
                 ) {
