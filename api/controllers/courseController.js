@@ -15,7 +15,7 @@ const { getInstituteCollection } = require("../models/instituteModel");
 
 function getFormattedTime() {
   const now = new Date();
-  
+
   // Get ISO string (UTC time) and remove the "Z" at the end
   const isoString = now.toISOString().slice(0, -1);
 
@@ -23,11 +23,11 @@ function getFormattedTime() {
   const offsetMinutes = now.getTimezoneOffset();
   const offsetHours = Math.abs(Math.floor(offsetMinutes / 60));
   const offsetMins = Math.abs(offsetMinutes % 60);
-  
+
   // Format timezone offset as ±HH:MM
   const sign = offsetMinutes > 0 ? "-" : "+";
   const formattedOffset = `${sign}${String(offsetHours).padStart(2, '0')}:${String(offsetMins).padStart(2, '0')}`;
-  
+
   return `${isoString}${formattedOffset}`;
 }
 // upload course
@@ -63,7 +63,7 @@ exports.editCourse = CatchAsyncError(async (req, res, next) => {
     const data = req.body;
     const thumbnail = data.thumbnail;
     const courseId = req.params.id;
-    
+
     // Get course collection from MongoDB
     const courseCollection = await getCourseCollection();
     const courseData = await courseCollection.findOne({ _id: new ObjectId(courseId) });
@@ -151,26 +151,26 @@ exports.getAllCourses = CatchAsyncError(async (req, res, next) => {
 exports.getCourseByUser = CatchAsyncError(async (req, res, next) => {
   try {
     const userCourseList = req.user?.courses;
-const courseId = req.params.id;
-console.log('courseID', courseId);
-console.log('userCourseList', userCourseList);
-console.log('req.user', req.user);
+    const courseId = req.params.id;
+    console.log('courseID', courseId);
+    console.log('userCourseList', userCourseList);
+    console.log('req.user', req.user);
 
-const courseExists = userCourseList?.includes(courseId);
+    const courseExists = userCourseList?.includes(courseId);
 
-if (!courseExists) {
-  return next(new ErrorHandler("You are not eligible to access this course", 404));
-}
+    if (!courseExists) {
+      return next(new ErrorHandler("You are not eligible to access this course", 404));
+    }
 
-const courseCollection = await getCourseCollection();
-const course = await courseCollection.findOne({ _id: new ObjectId(courseId) });
+    const courseCollection = await getCourseCollection();
+    const course = await courseCollection.findOne({ _id: new ObjectId(courseId) });
 
-const content = course?.courseData;
+    const content = course?.courseData;
 
-res.status(200).json({
-  success: true,
-  content,
-});
+    res.status(200).json({
+      success: true,
+      content,
+    });
 
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));
@@ -233,7 +233,7 @@ exports.addAnswer = CatchAsyncError(async (req, res, next) => {
   try {
     const { answer, courseId, contentId, questionId } = req.body;
     const courseCollection = await getCourseCollection();
-    
+
     const course = await courseCollection.findOne({ _id: new ObjectId(courseId) });
     if (!course) return next(new ErrorHandler("Course not found", 404));
 
@@ -268,7 +268,7 @@ exports.addAnswer = CatchAsyncError(async (req, res, next) => {
       });
     } else {
       const data = { name: question.user.name, title: courseContent.title };
-      const html = await ejs.renderFile(path.join(__dirname, "../mails/question-reply.ejs"), data);
+      const html = await ejs.renderFile(path.join(process.cwd(), "api/mails/question-reply.ejs"), data);
 
       try {
         await sendMail({
@@ -430,56 +430,56 @@ exports.generateVideoUrl = CatchAsyncError(async (req, res, next) => {
 
 exports.registerInstitute = CatchAsyncError(async (req, res, next) => {
   try {
-      const {
-          instituteName,
-          offerCode,
-          pincode,
-          registeringUser,
-          validity,
-          issuedDate,
-          eventName,
-          coursesToAllow,
-          certificateData,
-      } = req.body;
+    const {
+      instituteName,
+      offerCode,
+      pincode,
+      registeringUser,
+      validity,
+      issuedDate,
+      eventName,
+      coursesToAllow,
+      certificateData,
+    } = req.body;
 
-      if (!instituteName || !offerCode || !validity || !coursesToAllow) {
-          return next(new ErrorHandler("Required fields are missing", 400));
-      }
+    if (!instituteName || !offerCode || !validity || !coursesToAllow) {
+      return next(new ErrorHandler("Required fields are missing", 400));
+    }
 
-      const institutes = await getInstituteCollection();
+    const institutes = await getInstituteCollection();
 
-      // Check if offer code already exists
-      const existingInstitute = await institutes.findOne({ offerCode });
-      if (existingInstitute) {
-          return next(new ErrorHandler("Offer code already exists", 400));
-      }
+    // Check if offer code already exists
+    const existingInstitute = await institutes.findOne({ offerCode });
+    if (existingInstitute) {
+      return next(new ErrorHandler("Offer code already exists", 400));
+    }
 
-      // Insert into database
-      const instituteData = {
-          instituteName,
-          offerCode,
-          pincode,
-          registeringUser,
-          validity,
-          issuedDate,
-          eventName: eventName || null,
-          coursesToAllow,
-          certificateData,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-      };
+    // Insert into database
+    const instituteData = {
+      instituteName,
+      offerCode,
+      pincode,
+      registeringUser,
+      validity,
+      issuedDate,
+      eventName: eventName || null,
+      coursesToAllow,
+      certificateData,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
 
-      await institutes.insertOne(instituteData);
+    await institutes.insertOne(instituteData);
 
-      // Store offer code in Redis with courses
-      await redis.set(`offer_${offerCode}`, JSON.stringify(coursesToAllow), "EX", validity * 86400);
+    // Store offer code in Redis with courses
+    await redis.set(`offer_${offerCode}`, JSON.stringify(coursesToAllow), "EX", validity * 86400);
 
-      res.status(201).json({
-          success: true,
-          message: "Institute registered successfully",
-          institute: instituteData,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Institute registered successfully",
+      institute: instituteData,
+    });
   } catch (error) {
-      return next(new ErrorHandler(error.message, 400));
+    return next(new ErrorHandler(error.message, 400));
   }
 });

@@ -52,7 +52,7 @@ const path = require('path'); // Import Path for file paths
 const sendMail = async ({ email, subject, template, data }) => {
   try {
     const html = await ejs.renderFile(
-      path.join(__dirname, "../mails", template),
+      path.join(process.cwd(), "api/mails", template),
       data
     );
 
@@ -93,7 +93,7 @@ const sendMail = async ({ email, subject, template, data }) => {
 const sendMailCalmchase = async ({ email, subject, template, data }) => {
   try {
     const html = await ejs.renderFile(
-      path.join(__dirname, "../mails", template),
+      path.join(process.cwd(), "api/mails", template),
       data
     );
 
@@ -252,7 +252,7 @@ const sendResonanceContactEmail = async (req, res) => {
 
     const mailOptions = {
       from: `"Feedback Form" <${process.env.SMTP_MAIL}>`,
-      to: 'apply.theresonance@gmail.com', 
+      to: 'apply.theresonance@gmail.com',
       subject: "New Feedback Submission",
       text: `
         You've received new feedback:

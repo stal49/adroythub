@@ -25,8 +25,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
 
   const checkServiceStatus = async () => {
     try {
-      const serverUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
-      const { data } = await axios.get(`${serverUri}/check`);
+      const { data } = await axios.get(`/api/adroyt/check`);
       if (data.message) {
         toast.success("Welcome! We are ready to go.");
       } else {

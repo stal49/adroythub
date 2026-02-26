@@ -66,7 +66,7 @@ exports.createOrder = CatchAsyncError(async (req, res, next) => {
     };
 
     const html = await ejs.renderFile(
-      path.join(__dirname, "../mails/order-confirmation.ejs"),
+      path.join(process.cwd(), "api/mails/order-confirmation.ejs"),
       { order: mailData }
     );
 
@@ -92,7 +92,7 @@ exports.createOrder = CatchAsyncError(async (req, res, next) => {
     console.log("User courses update result:", updateResult);
     if (updateResult.modifiedCount === 0) {
       console.warn("User courses not updated.");
-    }    
+    }
 
     const notificationsCollection = await getNotificationCollection();
     await notificationsCollection.insertOne({
