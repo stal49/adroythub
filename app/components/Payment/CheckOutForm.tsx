@@ -83,9 +83,9 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
     }
 
     try {
-      const serverUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
+      const serverUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:3000";
       const { data: order } = await axios.post(
-        `${serverUri}/adroyt/create-order`,
+        `${serverUri}/api/adroyt/create-order`,
         { amount: Math.round(amount * 100), currency: "INR", courseId: courseId, path: `/courses/${courseId}` },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -123,7 +123,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
               return;
             }
             dispatch(updateUserCourses(courseId));
-            const socketUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
+            const socketUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:3000";
 
             console.log("=== CLIENT: VERIFY PAYMENT REQUEST ===");
             console.log("Socket URI:", socketUri);
@@ -135,7 +135,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
             });
 
             const verification = await axios.post(
-              `${socketUri}/adroyt/verify-payment`,
+              `${socketUri}/api/adroyt/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,

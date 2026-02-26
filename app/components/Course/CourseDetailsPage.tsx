@@ -41,7 +41,7 @@ const CourseDetailsPage = ({ id }: Props) => {
       const publishablekey = config?.publishablekey;
       setStripePromise(loadStripe(publishablekey));
     }
-    if (data && userData?.user) {
+    if (data && data.course && userData?.user) {
       const amount = Math.round(data.course.price * 100);
       createPaymentIntent(amount);
     }

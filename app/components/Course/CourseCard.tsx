@@ -16,7 +16,7 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
     >
       <div className="w-full min-h-[35vh] dark:bg-slate-500 dark:bg-opacity-20 backdrop-blur border dark:border-[#ffffff1d] border-[#00000015] dark:shadow-[bg-slate-700] rounded-lg p-3 shadow-sm dark:shadow-inner">
         <Image
-          src={item.thumbnail.url}
+          src={item?.thumbnail?.url || "/placeholder-course.png"}
           width={500}
           height={300}
           style={{ objectFit: "contain" }}
