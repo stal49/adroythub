@@ -21,7 +21,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     refreshToken: builder.query({
       query: () => ({
-        url: "refresh",
+        url: "auth/refresh",
         method: "GET",
         credentials: "include" as const,
       }),
