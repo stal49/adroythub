@@ -6,24 +6,25 @@ import { redirect } from "next/navigation";
 import React, { useEffect } from "react";
 
 type Props = {
-    params: any;
+    params: Promise<{ id: string }>;
 }
 
 const Page = ({ params }: Props) => {
-    const id = params.id;
+    const { id } = React.use(params);
     const { isLoading, error, data, refetch } = useLoadUserQuery(undefined, {});
 
     useEffect(() => {
         if (data) {
-            const isPurchased = data.user.courses.find((item: any) => item._id === id);
-            const isFreeCourse = data.user.courses.find((item: any) => item._id === id && item.price === 0);
-            
-            // Allow access if course is purchased or free
-            if (!isPurchased && !isFreeCourse) {
-                redirect("/");  // Redirect if not purchased and not free
+            const isPurchased = data.user.courses.find((item: any) =>
+                (typeof item === 'string' ? item === id : item._id === id)
+            );
+
+            // Allow access if course is purchased
+            if (!isPurchased) {
+                redirect("/");  // Redirect if not purchased
             }
         }
-        
+
         if (error) {
             redirect("/");  // Handle errors by redirecting
         }
@@ -34,11 +35,11 @@ const Page = ({ params }: Props) => {
             {
                 isLoading ? (
                     <Loader />
-                ) : (
+                ) : data?.user ? (
                     <div>
                         <CourseContent id={id} user={data.user} />
                     </div>
-                )
+                ) : null
             }
         </>
     );

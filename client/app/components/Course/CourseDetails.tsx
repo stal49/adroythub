@@ -46,9 +46,11 @@ const CourseDetails = ({
     console.log('data._id', data._id)
     setUser(userData?.user);
     if (userData?.user) {
-      const isPurchased = userData?.user?.courses?.includes(data._id);
+      const isPurchased = userData?.user?.courses?.find((item: any) =>
+        (typeof item === 'string' ? item === data._id : item._id === data._id)
+      );
       console.log('user?.courses', userData?.user?.courses)
-      console.log('isPurchasedisPurchased', isPurchased)
+      console.log('isPurchasedisPurchased', !!isPurchased)
     }
   }, [userData]);
 
@@ -57,7 +59,9 @@ const CourseDetails = ({
   const discountPercentengePrice = discountPercentenge.toFixed(0);
 
   const isPurchased =
-    userData?.user && userData?.user?.courses?.find((item: any) => item === data._id);
+    userData?.user && userData?.user?.courses?.find((item: any) =>
+      (typeof item === 'string' ? item === data._id : item._id === data._id)
+    );
 
   const handleOrder = (e: any) => {
     if (userData) {

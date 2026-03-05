@@ -8,11 +8,11 @@ import CourseContentList from "./CourseContentList";
 
 type Props = {
   id: string;
-  user:any;
+  user: any;
 };
 
-const CourseContent = ({ id,user }: Props) => {
-  const { data: contentData, isLoading,refetch } = useGetCourseContentQuery(id,{refetchOnMountOrArgChange:true});
+const CourseContent = ({ id, user }: Props) => {
+  const { data: contentData, isLoading, refetch } = useGetCourseContentQuery(id, { refetchOnMountOrArgChange: true });
   const [open, setOpen] = useState(false);
   const [route, setRoute] = useState('Login')
   const data = contentData?.content;
@@ -27,11 +27,13 @@ const CourseContent = ({ id,user }: Props) => {
         <>
           <Header activeItem={1} open={open} setOpen={setOpen} />
           <div className="w-full grid 800px:grid-cols-10">
-            <Heading
-              title={data[activeVideo]?.title}
-              description="Adroythub"
-              keywords={data[activeVideo]?.tags}
-            />
+            {data && data[activeVideo] && (
+              <Heading
+                title={data[activeVideo]?.title}
+                description="Adroythub"
+                keywords={data[activeVideo]?.tags}
+              />
+            )}
             <div className="col-span-7">
               <CourseContentMedia
                 data={data}
@@ -43,12 +45,12 @@ const CourseContent = ({ id,user }: Props) => {
               />
             </div>
             <div className="hidden 800px:block 800px:col-span-3">
-            <CourseContentList
-              setActiveVideo={setActiveVideo}
-              data={data}
-              activeVideo={activeVideo}
-            />
-          </div>
+              <CourseContentList
+                setActiveVideo={setActiveVideo}
+                data={data}
+                activeVideo={activeVideo}
+              />
+            </div>
           </div>
         </>
       )}

@@ -5,18 +5,19 @@ import Footer from '../../components/Footer';
 import GenerateCertificate from '../../components/Course/GenerateCertificate';
 import Header from '../../components/Header';
 import { useSelector } from 'react-redux';
-import {  useLoadUserQuery } from '@/redux/features/api/apiSlice';
+import { useLoadUserQuery } from '@/redux/features/api/apiSlice';
 import { useGetCourseDetailsQuery } from '@/redux/features/courses/coursesApi';
 
 type Props = {
-  params:any;
+  params: Promise<{ id: string }>;
 }
- 
-const Page = ({params}: Props) => {
- 
+
+const Page = ({ params }: Props) => {
+  const { id } = use(params);
 
 
-  
+
+
 
 
 
@@ -29,7 +30,6 @@ const Page = ({params}: Props) => {
   const [activeItem, setActiveItem] = useState(0);
   const [route, setRoute] = useState("Login");
 
-  const id = params.id;
 
   const { data, isLoading, error } = useGetCourseDetailsQuery(id);
   const [courseName, setCourseName] = useState<string | null>(null);
@@ -41,17 +41,17 @@ const Page = ({params}: Props) => {
 
 
 
-0
+  0
   return (
-    <Suspense fallback={<div>Loading...</div>}> 
+    <Suspense fallback={<div>Loading...</div>}>
 
       <Header
         open={open}
         setOpen={setOpen}
         activeItem={activeItem}
       />
-      <GenerateCertificate  id={id} courseName={courseName ?? "Course Name"}/>
-      <Footer/>
+      <GenerateCertificate id={id} courseName={courseName ?? "Course Name"} />
+      <Footer />
     </Suspense>
   );
 };
