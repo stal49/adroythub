@@ -28,7 +28,7 @@
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "bufferutil": "^4.0.7",
-    "eslint": "8.46.0",
+    "eslint": "^9.0.0",
     "eslint-config-next": "^16.1.6",
     "firebase": "^10.12.4",
     "formik": "^2.4.3",
