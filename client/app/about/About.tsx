@@ -152,31 +152,11 @@ const About = () => {
 
         </p>
       </div>
-      <div className="flex justify-center mb-10 sm:mb-0">
-  {theme === "dark" ? (
-    <Image
-      src={require("../../public/assests/adsium-logo.png")}
-      alt="logo"
-      className="max-w-full h-auto"
-      width={300}
-      height={300}
-      sizes="(max-width: 640px) 150px, (max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
-    />
-  ) : (
-    <Image
-      src={require("../../public/assests/adsium-white.png")}
-      alt="logo"
-      className="max-w-full h-auto"
-      width={300}
-      height={300}
-      sizes="(max-width: 640px) 150px, (max-width: 768px) 200px, (max-width: 1024px) 250px, 300px"
-    />
-  )}
-</div>
+
 
       <div className="w-[95%] sm:w-[85%] m-auto flex flex-col sm:flex-row justify-between items-center mt-12">
         <p className="text-[16px] sm:text-[18px] lg:text-[20px] font-Poppins m-5 sm:m-10 lg:m-20 pt-5 sm:pt-10">
-          Adroythub is proudly managed by Adsium Innovation Private Limited, a company dedicated to fostering innovation and excellence in education. With the expertise and support of Adsium Innovation, we strive to deliver the highest quality learning experiences and resources to help you succeed.
+          Adroythub is dedicated to fostering innovation and excellence in education. We strive to deliver the highest quality learning experiences and resources to help you succeed.
           <br />
           <br />
           Join the Adroythub community today and take the first step towards a brighter future. Whether you are looking to upgrade your skills, change careers, or advance in your current role, Adroythub is here to help you achieve your goals.

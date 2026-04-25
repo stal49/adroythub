@@ -94,7 +94,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
         key: order.key || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_RwCeSpA3JNX9E0",
         amount: order.amount,
         currency: order.currency,
-        name: "Adsium Innovation",
+        name: "Adroythub",
         description: "Payment for courses",
         order_id: order.id,
         handler: async (response: any) => {

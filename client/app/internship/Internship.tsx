@@ -120,7 +120,7 @@ const [isFormVisible, setFormVisible] = useState(false);
                   <span className="text-gradient">Empower Your Future with Practical Experience</span>
                 </h1>
                 <br />
-                At Adroythub, a subsidiary of Adsium Innovation Private Limited, we believe that real-world experience is key to unlocking your full potential. That&apos;s why we&apos;ve created an exclusive internship program for graduates of our offline batches. This program is designed to bridge the gap between academic learning and industry application, offering you the opportunity to work on meaningful projects in IT, programming, marketing, and business communication.
+                At Adroythub, we believe that real-world experience is key to unlocking your full potential. That&apos;s why we&apos;ve created an exclusive internship program for graduates of our offline batches. This program is designed to bridge the gap between academic learning and industry application, offering you the opportunity to work on meaningful projects in IT, programming, marketing, and business communication.
                 <br />
                 <br />
                 <div ref={targetSectionRef} className="flex justify-center mt-7 p-4 800px:p-8">
@@ -207,7 +207,7 @@ const [isFormVisible, setFormVisible] = useState(false);
                                <span className="text-gradient">3. Mentorship and Networking:</span> Work closely with experienced mentors who will guide you through your projects and help you navigate the professional world. In addition, you&apos;ll have the opportunity to network with industry professionals, opening doors to future career opportunities.
                              </p>
                     <p className="mt-4">
-                      <span className="text-gradient">4. Career Advancement:</span> Many of our interns have gone on to secure full-time positions within Adsium Innovation or other leading companies. The experience and skills you gain here will give you a competitive edge in the job market.
+                      <span className="text-gradient">4. Career Advancement:</span> Many of our interns have gone on to secure full-time positions within leading companies. The experience and skills you gain here will give you a competitive edge in the job market.
                     </p>
                     <p className="mt-4">
                       <span className="text-gradient">5. Portfolio Development:</span> Build a strong portfolio showcasing your skills and accomplishments. This portfolio will be a powerful tool in your job search, demonstrating your ability to deliver real-world results.
