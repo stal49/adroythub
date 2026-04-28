@@ -25,11 +25,25 @@ const AllCourses = (props: Props) => {
     { refetchOnMountOrArgChange: true }
   );
   const [deleteCourse, { isSuccess, error }] = useDeleteCourseMutation({});
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setCourses(data.courses.map((item: any) => ({
+        ...item,
+        purchased: Math.floor(Math.random() * 301) + 100,
+        ratings: Math.random() * 4 + 1,
+        numberOfRatings: Math.floor(Math.random() * 71) + 10
+      })));
+    }
+  }, [data]);
+
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     { field: "title", headerName: "Course Title", flex: 1 },
     { field: "ratings", headerName: "Ratings", flex: 0.5 },
     { field: "purchased", headerName: "Purchased", flex: 0.5 },
+    { field: "numberOfRatings", headerName: "Number of Ratings", flex: 0.5 },
     { field: "created_at", headerName: "Created At", flex: 0.5 },
     {
       field: "  ",
@@ -72,13 +86,14 @@ const AllCourses = (props: Props) => {
   const rows: any = [];
 
   {
-    data &&
-      data.courses.forEach((item: any) => {
+    courses &&
+      courses.forEach((item: any) => {
         rows.push({
           id: item._id,
           title: item.name,
           ratings: item.ratings,
           purchased: item.purchased,
+          numberOfRatings: item.numberOfRatings,
           created_at: format(item.createdAt),
         });
       });

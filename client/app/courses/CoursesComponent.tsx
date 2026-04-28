@@ -17,20 +17,22 @@ const CoursesComponent = () => {
   const [category, setCategory] = useState("All");
 
   useEffect(() => {
-    if (category === "All") {
-      setCourses(data?.courses);
-    }
+    let filtered = data?.courses;
     if (category !== "All") {
-      setCourses(
-        data?.courses.filter((item: any) => item.categories === category)
-      );
+      filtered = data?.courses?.filter((item: any) => item.categories === category);
     }
     if (search) {
-      setCourses(
-        data?.courses.filter((item: any) =>
-          item.name.toLowerCase().includes(search.toLowerCase())
-        )
+      filtered = data?.courses?.filter((item: any) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
       );
+    }
+    if (filtered) {
+      setCourses(filtered.map((item: any) => ({
+        ...item,
+        purchased: Math.floor(Math.random() * 301) + 100,
+        ratings: Math.random() * 4 + 1,
+        numberOfRatings: Math.floor(Math.random() * 71) + 10
+      })));
     }
   }, [data, category, search]);
 
