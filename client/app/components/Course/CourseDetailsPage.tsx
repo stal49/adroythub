@@ -58,7 +58,7 @@ const CourseDetailsPage = ({ id }: Props) => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div>
+        <div className="bg-gray-100 dark:bg-slate-900 min-h-screen">
           <Heading
             title={data.course.name + " - Adroythub"}
             description={

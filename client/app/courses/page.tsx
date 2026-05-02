@@ -17,9 +17,9 @@ type Props = {};
 
 const Page = (props: Props) => {
   return (
-    <div>
+    <div className="bg-gray-100 dark:bg-slate-900 min-h-screen">
       <Header open={false} setOpen={() => {}} activeItem={1} />
-      <div className="w-[95%] 800px:w-[85%] m-auto min-h-[70vh]">
+      <div className="w-[95%] 800px:w-[85%] m-auto min-h-[70vh] py-8">
         <Heading
           title={"All courses - Adroythub"}
           description="Adroythub: Transforming Education for a Brighter Future
