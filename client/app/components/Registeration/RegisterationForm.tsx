@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/features/store";
 
 interface RegisterationFormProps {
   onClose: () => void;
 }
 
 const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
+  const { token } = useSelector((state: RootState) => state.auth);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -26,11 +29,19 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!token) {
+      toast.error("Please login to submit the registration form");
+      return;
+    }
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/registeration`, {
+      const serverUri = process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:8000/api";
+      const response = await fetch(`${serverUri}/registration`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -42,7 +53,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
       }
 
       const data = await response.json();
-      toast.success("Registeration successful!");
+      toast.success("Registration successful!");
       onClose();
     } catch (error) {
       console.error("Error:", error);

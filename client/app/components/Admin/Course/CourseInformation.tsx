@@ -78,7 +78,7 @@ const CourseInformation: FC<Props> = ({
         <div>
           <label htmlFor="">Course Name</label>
           <input
-            type="name"
+            type="text"
             name=""
             required
             value={courseInfo.name}

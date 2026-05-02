@@ -9,15 +9,23 @@ const ChangePassword: FC<Props> = (props) => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [updatePassword, { isSuccess, error }] = useUpdatePasswordMutation();
+  const [updatePassword, { isSuccess, error, isLoading }] = useUpdatePasswordMutation();
 
   const passwordChangeHandler = async (e: any) => {
     e.preventDefault();
+    if (newPassword.length < 6) {
+      toast.error("New password must be at least 6 characters");
+      return;
+    }
     if (newPassword !== confirmPassword) {
       toast.error("Passwords do not match");
-    } else {
-      await updatePassword({ oldPassword, newPassword });
+      return;
     }
+    if (oldPassword === newPassword) {
+      toast.error("New password must be different from old password");
+      return;
+    }
+    await updatePassword({ oldPassword, newPassword });
   };
 
   useEffect(() => {
@@ -79,10 +87,10 @@ const ChangePassword: FC<Props> = (props) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <input
-              className={`w-[95%] h-[40px] border border-[#37a39a] text-center text-black dark:text-[#fff] rounded-[3px] mt-8 cursor-pointer`}
-              required
-              value="Update"
+              className={`w-[95%] h-[40px] border border-[#37a39a] text-center text-black dark:text-[#fff] rounded-[3px] mt-8 cursor-pointer ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+              value={isLoading ? "Updating..." : "Update"}
               type="submit"
+              disabled={isLoading}
             />
           </div>
         </form>

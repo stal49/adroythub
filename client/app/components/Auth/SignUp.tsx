@@ -7,7 +7,6 @@ import { styles } from "../../../app/styles/style";
 import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Please enter your name!"),
@@ -141,6 +140,9 @@ const Signup: FC = () => {
             placeholder="9874561231"
             className={`${errors.mobile && touched.mobile && "border-red-500"} ${styles.input}`}
           />
+          {errors.mobile && touched.mobile && (
+            <span className="text-red-500 pt-2 block">{errors.mobile}</span>
+          )}
         </div>
         <div className="w-full mt-5 relative mb-1">
           <label className={`${styles.label}`} htmlFor="institute">

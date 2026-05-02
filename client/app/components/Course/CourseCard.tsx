@@ -14,7 +14,7 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
       href={!isProfile ? `/course/${item._id}` : `course-access/${item._id}`}
       className="block w-full h-full"
     >
-      <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[24px] overflow-hidden transition-all duration-300 flex flex-col justify-between">
+      <div className="w-full h-full bg-white dark:bg-slate-800 rounded-[24px] overflow-hidden transition-all duration-300 flex flex-col justify-between">
         <div className="w-full h-[160px] relative overflow-hidden">
           <Image
             src={item.thumbnail?.url || "/placeholder.png"}

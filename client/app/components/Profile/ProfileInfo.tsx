@@ -16,14 +16,17 @@ type Props = {
 };
 
 const ProfileInfo: FC<Props> = ({ avatar, user }) => {
-  const [name, setName] = useState(user && user.name);
+  const [name, setName] = useState(user?.name || "");
   const [updateAvatar, { isSuccess, error }] = useUpdateAvatarMutation();
-  const [editProfile, { isSuccess: success, error: updateError }] =
+  const [editProfile, { isSuccess: success, error: updateError, isLoading: isEditing }] =
     useEditProfileMutation();
   const [loadUser, setLoadUser] = useState(false);
   const {} = useLoadUserQuery(undefined, { skip: loadUser ? false : true });
 
   const imageHandler = async (e: any) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
     const fileReader = new FileReader();
 
     fileReader.onload = () => {
@@ -32,7 +35,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
         updateAvatar(avatar);
       }
     };
-    fileReader.readAsDataURL(e.target.files[0]);
+    fileReader.readAsDataURL(file);
   };
 
   useEffect(() => {
@@ -50,11 +53,15 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (name !== "") {
-      await editProfile({
-        name: name,
-      });
+    if (!name || name.trim() === "") {
+      toast.error("Name cannot be empty");
+      return;
     }
+    if (name === user?.name) {
+      toast.success("No changes to update");
+      return;
+    }
+    await editProfile({ name: name });
   };
 
   return (
@@ -100,19 +107,19 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
             </div>
             <div className="w-[100%] pt-2">
               <label className="block pb-2">Email Address</label>
-              <input
-                type="text"
-                readOnly
-                className={`${styles.input} !w-[95%] mb-1 800px:mb-0`}
-                required
-                value={user?.email}
-              />
+            <input
+              type="email"
+              readOnly
+              className={`${styles.input} !w-[95%] mb-1 800px:mb-0`}
+              required
+              value={user?.email}
+            />
             </div>
             <input
-              className={`w-full 800px:w-[250px] h-[40px] border border-[#37a39a] text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer`}
-              required
-              value="Update"
+              className={`w-full 800px:w-[250px] h-[40px] border border-[#37a39a] text-center dark:text-[#fff] text-black rounded-[3px] mt-8 cursor-pointer ${isEditing ? "opacity-50 cursor-not-allowed" : ""}`}
+              value={isEditing ? "Updating..." : "Update"}
               type="submit"
+              disabled={isEditing}
             />
           </div>
         </form>

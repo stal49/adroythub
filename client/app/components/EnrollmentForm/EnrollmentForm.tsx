@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/features/store";
 
 interface EnrollmentFormProps {
   onClose: () => void;
 }
 
 const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
+  const { token } = useSelector((state: RootState) => state.auth);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -23,11 +26,19 @@ const EnrollmentForm: React.FC<EnrollmentFormProps> = ({ onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!token) {
+      toast.error("Please login to submit the enrollment form");
+      return;
+    }
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URI}/internship-enrollment`, {
+      const serverUri = process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:8000/api";
+      const response = await fetch(`${serverUri}/internship-enrollment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
