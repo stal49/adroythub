@@ -14,16 +14,14 @@ const authSlice = createSlice({
       state.token = action.payload.token;
     },
     
-    userLoggedIn: (state, action: PayloadAction<{ accessToken: string; refreshToken: string; user: string }>) => {
+    userLoggedIn: (state, action: PayloadAction<{ accessToken: string; user: string }>) => {
       setCookie("at", action.payload.accessToken, 10);
       setCookie("user", JSON.stringify(action.payload.user), 10); 
       state.token = action.payload.accessToken;
-      localStorage.setItem("rt", action.payload.refreshToken);
       state.user = action.payload.user;
     },
     userLoggedOut: (state) => {
       removeCookie("at");
-      localStorage.removeItem("rt");
       state.token = "";
       state.user = "";
     },

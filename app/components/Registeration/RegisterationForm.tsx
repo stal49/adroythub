@@ -37,7 +37,7 @@ const RegisterationForm: React.FC<RegisterationFormProps> = ({ onClose }) => {
 
     try {
       const serverUri = process.env.NEXT_PUBLIC_SERVER_URI || "http://localhost:8000/api";
-      const response = await fetch(`${serverUri}/registration`, {
+      const response = await fetch(`${serverUri}/registeration`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -18,13 +18,6 @@ export const apiSlice = createApi({
     },
   }),
   endpoints: (builder) => ({
-    refreshToken: builder.query({
-      query: () => ({
-        url: "refresh",
-        method: "GET",
-        credentials: "include" as const,
-      }),
-    }),
     loadUser: builder.query({
       query: () => ({
         url: "me",
@@ -48,4 +41,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useRefreshTokenQuery, useLoadUserQuery } = apiSlice;
+export const { useLoadUserQuery } = apiSlice;

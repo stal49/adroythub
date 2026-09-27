@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import { IoCheckmarkDoneOutline, IoCloseOutline } from "react-icons/io5";
 import { format } from "timeago.js";
 import CourseContentList from "../Course/CourseContentList";
-import { Elements } from "@stripe/react-stripe-js";
 import CheckOutForm from "../Payment/CheckOutForm";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Image from "next/image";
@@ -20,8 +19,6 @@ const socketId = socketIO(ENDPOINT, { transports: ["websocket"] });
 
 type Props = {
   data: any;
-  stripePromise: any;
-  clientSecret: string;
   setRoute: any;
   setOpen: any;
   onPaymentSuccess: () => void;
@@ -29,8 +26,6 @@ type Props = {
 
 const CourseDetails = ({
   data,
-  stripePromise,
-  clientSecret,
   setRoute,
   setOpen: openAuthModal,
   onPaymentSuccess

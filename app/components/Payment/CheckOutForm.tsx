@@ -20,8 +20,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
   const dispatch = useDispatch()
   const { token } = useSelector((state: RootState) => state.auth);
   const { user } = useSelector((state: any) => state.auth);
-  const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
-  const [paymentType, setPaymentType] = useState<"razorpay" | "phonepe" | null>(null);
+  const [paymentType, setPaymentType] = useState<"razorpay" | null>(null);
 
   const checkServiceStatus = async () => {
     try {
@@ -43,14 +42,6 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
   }, []);
 
 
-
-  const handlePaymentTypeSelection = (type: "razorpay" | "phonepe") => {
-    if (type === "phonepe") {
-      toast.info("PhonePe is not available right now.");
-    } else {
-      setPaymentType("razorpay");
-    }
-  };
 
   const loadRazorpay = () => {
     return new Promise((resolve) => {
@@ -86,12 +77,12 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
       const serverUri = process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "http://localhost:8000";
       const { data: order } = await axios.post(
         `${serverUri}/adroyt/create-order`,
-        { amount: Math.round(amount * 100), currency: "INR", courseId: courseId, path: `/courses/${courseId}` },
+        { courseId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       const options = {
-        key: order.key || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_RwCeSpA3JNX9E0",
+        key: order.key,
         amount: order.amount,
         currency: order.currency,
         name: "Adroythub",
@@ -109,8 +100,11 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
               `${serverUri}/create-order`,
               {
                 courseId: courseId,
-                amount: amount,
-                currency: "INR"
+                payment_info: {
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                },
               },
               { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -148,7 +142,6 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
             toast.success(verification.data.message);
             onPaymentSuccess()
             setOpen(false);
-            console.log('hello', user, courseId)
           } catch (error: any) {
             console.error("=== CLIENT: PAYMENT VERIFICATION ERROR ===");
             console.error("Error object:", error);
@@ -206,15 +199,9 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
 
         <h1 className="text-2xl font-medium text-gray-700 text-center">Make a Payment</h1>
         <div className="space-y-4 mt-6">
-          {/* <button
-            className="w-full p-3 bg-yellow-500 text-white rounded-xl hover:bg-yellow-600"
-            onClick={() => handlePaymentTypeSelection("phonepe")}
-          >
-            PhonePe (Not Available Now)
-          </button> */}
           <button
             className="w-full p-3 bg-blue-500 text-white rounded-xl hover:bg-blue-600"
-            onClick={() => handlePaymentTypeSelection("razorpay")}
+            onClick={() => setPaymentType("razorpay")}
           >
             Razorpay
           </button>
@@ -225,7 +212,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({ courseId, amount, userId, s
               className="w-full p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
               onClick={handlePayment}
             >
-              Proceed with Payment (₹1)
+              Proceed with Payment (₹{amount})
             </button>
           </div>
         )}

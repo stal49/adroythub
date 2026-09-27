@@ -7,7 +7,7 @@ import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
 import Image from "next/image";
 import avatar from "../../public/assests/avatar.png";
 import { useSession } from "next-auth/react";
-import { useLogOutQuery, useSocialAuthMutation } from "@/redux/features/auth/authApi";
+import { useLogOutQuery } from "@/redux/features/auth/authApi";
 import { toast } from "react-hot-toast";
 import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 import Loader from "./Loader/Loader";
@@ -31,7 +31,6 @@ const Header: FC<Props> = ({ activeItem }) => {
   const { token } = useSelector((state: RootState) => state.auth);
   const {data:userData,isLoading,refetch} = useLoadUserQuery(undefined, { skip: !token });
   const { data } = useSession();
-  const [socialAuth, { isSuccess, error }] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
   const {} = useLogOutQuery(undefined, {
     skip: !logout ? true : false,
