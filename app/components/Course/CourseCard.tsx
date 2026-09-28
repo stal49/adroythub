@@ -1,7 +1,9 @@
+"use client";
+
 import Ratings from "@/app/utils/Ratings";
 import Image from "next/image";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 type Props = {
   item: any;
@@ -9,6 +11,8 @@ type Props = {
 };
 
 const CourseCard: FC<Props> = ({ item, isProfile }) => {
+  const [thumbnailFailed, setThumbnailFailed] = useState(false);
+
   return (
     <Link
       href={!isProfile ? `/course/${item._id}` : `course-access/${item._id}`}
@@ -17,10 +21,11 @@ const CourseCard: FC<Props> = ({ item, isProfile }) => {
       <div className="w-full h-full bg-white dark:bg-slate-800 rounded-[24px] overflow-hidden transition-all duration-300 flex flex-col justify-between">
         <div className="w-full h-[160px] relative overflow-hidden">
           <Image
-            src={item.thumbnail?.url || "/placeholder.png"}
+            src={!thumbnailFailed && item.thumbnail?.url ? item.thumbnail.url : "/placeholder.png"}
             alt={item.name}
             width={500}
             height={300}
+            onError={() => setThumbnailFailed(true)}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
           />
         </div>

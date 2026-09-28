@@ -38,23 +38,21 @@ const Header: FC<Props> = ({ activeItem }) => {
 
   const router = useRouter();
   const [show, setShow] = useState(token);
+  const [avatarFailed, setAvatarFailed] = useState(false);
 
   useEffect(() => {
   if(token || userData){
     setShow(token)
   }
   }, [data, userData, token ,isLoading, refetch]);
-  
 
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 85) {
-        setActive(true);
-      } else {
-        setActive(false);
-      }
-    });
-  }
+  useEffect(() => {
+    const handleScroll = () => {
+      setActive(window.scrollY > 85);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleClose = (e: any) => {
     if (e.target.id === "screen") {
@@ -69,10 +67,6 @@ const Header: FC<Props> = ({ activeItem }) => {
       refetch();
     }
   }, [token, refetch]);
-  useEffect(() => {
-    console.log("Token:", token);
-    console.log("UserData:", userData);
-  }, [token, userData]);
 
  
 
@@ -133,10 +127,11 @@ const Header: FC<Props> = ({ activeItem }) => {
               {token ? (
                 <Link href={"/profile"}>
                   <Image
-                    src={userData?.user.avatar ? userData.user.avatar.url : avatar}
+                    src={!avatarFailed && userData?.user.avatar ? userData.user.avatar.url : avatar}
                     alt=""
                     width={30}
                     height={30}
+                    onError={() => setAvatarFailed(true)}
                     className="w-[30px] h-[30px] rounded-full cursor-pointer"
                     style={{border: activeItem === 6 ? "2px solid #37a39a" : "none"}}
                   />
@@ -163,10 +158,11 @@ const Header: FC<Props> = ({ activeItem }) => {
               {userData?.user ? (
                 <Link href={"/profile"}>
                   <Image
-                    src={userData?.user.avatar ? userData.user.avatar.url : avatar}
+                    src={!avatarFailed && userData?.user.avatar ? userData.user.avatar.url : avatar}
                     alt=""
                     width={30}
                     height={30}
+                    onError={() => setAvatarFailed(true)}
                     className="w-[30px] h-[30px] rounded-full ml-[20px] cursor-pointer"
                     style={{border: activeItem === 6 ? "2px solid #37a39a" : "none"}}
                   />

@@ -24,10 +24,7 @@ const DashboardHeader: FC<Props> = ({ open, setOpen }) => {
     useUpdateNotificationStatusMutation();
   const [notifications, setNotifications] = useState<any>([]);
   const [audio] = useState<any>(
-    typeof window !== "undefined" &&
-      new Audio(
-        "https://res.cloudinary.com/damk25wo5/video/upload/v1693465789/notification_vcetjn.mp3"
-      )
+    typeof window !== "undefined" && new Audio("/assests/notification.mp3")
   );
 
   const playNotificationSound = () => {

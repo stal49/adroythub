@@ -4,3 +4,6 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[images]
+  remote_images = ["^https://res\\.cloudinary\\.com/.*", "^https://randomuser\\.me/.*", "^https://ik\\.imagekit\\.io/.*"]
