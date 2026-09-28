@@ -7,6 +7,7 @@ import { styles } from "../../../app/styles/style";
 import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Spinner from "../Loader/Spinner";
 
 const schema = Yup.object().shape({
   name: Yup.string().required("Please enter your name!"),
@@ -23,7 +24,7 @@ const schema = Yup.object().shape({
 
 const Signup: FC = () => {
   const [show, setShow] = useState(false);
-  const [register, { data, error, isSuccess }] = useRegisterMutation();
+  const [register, { data, error, isSuccess, isLoading }] = useRegisterMutation();
   const router = useRouter();
 
 
@@ -171,7 +172,13 @@ const Signup: FC = () => {
           />
         </div>
         <div className="w-full mt-5">
-          <input type="submit" value="Sign Up" className={`${styles.button}`} />
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`${styles.button} ${isLoading ? "opacity-70 cursor-not-allowed" : ""}`}
+          >
+            {isLoading ? <Spinner /> : "Sign Up"}
+          </button>
         </div>
         <br />
         <h5 className="text-center pt-4 font-Poppins text-[14px] text-black dark:text-white">

@@ -9,6 +9,7 @@ import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/features/store";
 import { useRouter } from "next/navigation";
+import Spinner from "../Loader/Spinner";
 
 type Props = {
   setOpen: (open: boolean) => void;
@@ -24,7 +25,7 @@ const schema = Yup.object().shape({
 
 const Login: FC<Props> = ({ setOpen, refetch }) => {
   const [show, setShow] = useState(false);
-  const [login, { isSuccess, error }] = useLoginMutation();
+  const [login, { isSuccess, error, isLoading }] = useLoginMutation();
   const { token } = useSelector((state: RootState) => state.auth);
   const router = useRouter();
   
@@ -98,7 +99,13 @@ const Login: FC<Props> = ({ setOpen, refetch }) => {
           )}
         </div>
         <div className="w-full mt-5">
-          <input type="submit" value="Login" className={`${styles.button}`} />
+          <button
+            type="submit"
+            disabled={isLoading}
+            className={`${styles.button} ${isLoading ? "opacity-70 cursor-not-allowed" : ""}`}
+          >
+            {isLoading ? <Spinner /> : "Login"}
+          </button>
         </div>
         <br />
         

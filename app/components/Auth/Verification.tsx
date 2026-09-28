@@ -1,10 +1,13 @@
 import { styles } from "@/app/styles/style";
 import { useActivationMutation } from "@/redux/features/auth/authApi";
+import { clearActivationToken } from "@/redux/features/auth/authSlice";
+import { RootState } from "@/redux/features/store";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { VscWorkspaceTrusted } from "react-icons/vsc";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Spinner from "../Loader/Spinner";
 
 type VerifyNumber = {
   "0": string;
@@ -14,21 +17,40 @@ type VerifyNumber = {
 };
 
 const Verification: FC = () => {
-  const { token } = useSelector((state: any) => state.auth);
-  const [activation, { isSuccess, error }] = useActivationMutation();
+  const dispatch = useDispatch();
+  const { activationToken } = useSelector((state: RootState) => state.auth);
+  const [activation, { isSuccess, isLoading, error }] = useActivationMutation();
   const [invalidError, setInvalidError] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
+    // No activation token in state means this page was opened directly,
+    // refreshed after the short-lived token expired, or activation already
+    // completed - there's nothing to verify, so send the user back.
+    if (!activationToken) {
+      toast.error("Your verification session has expired. Please sign up again.");
+      router.replace("/signup");
+    }
+  }, [activationToken, router]);
+
+  useEffect(() => {
     if (isSuccess) {
       toast.success("Account activated successfully");
+      dispatch(clearActivationToken());
       router.push("/login");
     }
     if (error) {
       if ("data" in error) {
         const errorData = error as any;
-        toast.error("Please enter valid OTP");
-        setInvalidError(true);
+        const message: string = errorData?.data?.message || "";
+        if (message.toLowerCase().includes("jwt")) {
+          toast.error("Your verification session has expired. Please sign up again.");
+          dispatch(clearActivationToken());
+          router.replace("/signup");
+        } else {
+          toast.error(message || "Please enter valid OTP");
+          setInvalidError(true);
+        }
       } else {
         console.log("An error occured:", error);
       }
@@ -50,13 +72,14 @@ const Verification: FC = () => {
   });
 
   const verificationHandler = async () => {
+    if (!activationToken || isLoading) return;
     const verificationNumber = Object.values(verifyNumber).join("");
     if (verificationNumber.length !== 4) {
       setInvalidError(true);
       return;
     }
     await activation({
-      activation_token: token,
+      activation_token: activationToken,
       activation_code: verificationNumber,
     });
   };
@@ -105,8 +128,12 @@ const Verification: FC = () => {
       <br />
       <br />
       <div className="w-full flex justify-center">
-        <button className={`${styles.button}`} onClick={verificationHandler}>
-          Verify OTP
+        <button
+          className={`${styles.button} ${isLoading ? "opacity-70 cursor-not-allowed" : ""}`}
+          onClick={verificationHandler}
+          disabled={isLoading}
+        >
+          {isLoading ? <Spinner /> : "Verify OTP"}
         </button>
       </div>
       <br />

@@ -2,8 +2,9 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { getCookie, setCookie, removeCookie } from "../utils/cookies";
 
 const initialState = {
-  token: getCookie("at") || "", 
-  user: getCookie("user") ? JSON.parse(getCookie("user") as string) : "", 
+  token: getCookie("at") || "",
+  user: getCookie("user") ? JSON.parse(getCookie("user") as string) : "",
+  activationToken: getCookie("activation_token") || "",
 };
 
 const authSlice = createSlice({
@@ -11,9 +12,16 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     userRegistration: (state, action: PayloadAction<{ token: string }>) => {
-      state.token = action.payload.token;
+      // Short-lived cookie so the activation token survives a refresh/new tab;
+      // matches the backend's 5m ACTIVATION_SECRET JWT expiry.
+      setCookie("activation_token", action.payload.token, 10 / (24 * 60));
+      state.activationToken = action.payload.token;
     },
-    
+    clearActivationToken: (state) => {
+      removeCookie("activation_token");
+      state.activationToken = "";
+    },
+
     userLoggedIn: (state, action: PayloadAction<{ accessToken: string; user: string }>) => {
       setCookie("at", action.payload.accessToken, 10);
       setCookie("user", JSON.stringify(action.payload.user), 10); 
@@ -44,7 +52,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { userRegistration, userLoggedIn, userLoggedOut, checkAuth, updateUserCourses } = authSlice.actions;
+export const { userRegistration, clearActivationToken, userLoggedIn, userLoggedOut, checkAuth, updateUserCourses } = authSlice.actions;
 
 export default authSlice.reducer;
 
