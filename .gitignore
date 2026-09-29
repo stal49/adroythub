@@ -38,3 +38,6 @@ Thumbs.db
 
 # bun
 bun.lock
+
+# local course assets
+/public/courses
