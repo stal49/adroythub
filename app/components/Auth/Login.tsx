@@ -98,6 +98,14 @@ const Login: FC<Props> = ({ setOpen, refetch }) => {
             <span className="text-red-500 pt-2 block">{errors.password}</span>
           )}
         </div>
+        <div className="w-full flex justify-end mt-2">
+          <span
+            className="text-[#2190ff] text-[13px] font-Poppins cursor-pointer hover:underline"
+            onClick={() => router.push("/forget-password")}
+          >
+            Forgot Password?
+          </span>
+        </div>
         <div className="w-full mt-5">
           <button
             type="submit"

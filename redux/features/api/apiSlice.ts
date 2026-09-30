@@ -14,6 +14,15 @@ export const apiSlice = createApi({
         headers.set("Authorization", `Bearer ${token}`); // Attach Bearer Token
       }
 
+      if (typeof window !== "undefined") {
+        let browserId = localStorage.getItem("browser_id");
+        if (!browserId) {
+          browserId = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
+          localStorage.setItem("browser_id", browserId);
+        }
+        headers.set("x-browser-id", browserId);
+      }
+
       return headers;
     },
   }),
