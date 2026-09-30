@@ -15,12 +15,19 @@ export const apiSlice = createApi({
       }
 
       if (typeof window !== "undefined") {
-        let browserId = localStorage.getItem("browser_id");
-        if (!browserId) {
-          browserId = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
-          localStorage.setItem("browser_id", browserId);
+        try {
+          let browserId = localStorage.getItem("browser_id");
+          if (!browserId) {
+            browserId =
+              typeof crypto !== "undefined" && crypto.randomUUID
+                ? crypto.randomUUID()
+                : Math.random().toString(36).substring(2);
+            localStorage.setItem("browser_id", browserId);
+          }
+          headers.set("x-browser-id", browserId);
+        } catch {
+          // Fallback if localStorage is unavailable or restricted
         }
-        headers.set("x-browser-id", browserId);
       }
 
       return headers;

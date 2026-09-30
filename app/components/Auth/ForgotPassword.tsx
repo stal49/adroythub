@@ -139,6 +139,9 @@ const ForgotPassword: FC = () => {
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Backspace" && !otpValues[index] && index > 0) {
       inputRefs[index - 1].current?.focus();
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      handleVerifyOtp();
     }
   };
 
